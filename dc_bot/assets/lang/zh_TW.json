@@ -18,6 +18,17 @@
     "bot.commands_synced": "{} 個指令已同步",
     "bot.commands_sync_error": "同步指令失敗\n錯誤：{}",
 
+    "cmd.load.description": "載入程式套件",
+    "cmd.load.loaded": "已載入程式套件: {}",
+    "cmd.load.error": "無法載入{0}\n{1}",
+    "cmd.unload.description": "卸載程式套件",
+    "cmd.unload.unloaded": "已卸載程式套件: {}",
+    "cmd.unload.error": "無法卸載{0}\n{1}",
+    "cmd.reload.description": "重新載入程式套件",
+    "cmd.reload.reloaded": "已重新載入程式套件: {}",
+    "cmd.Reload.error": "無法重新載入{0}\n{1}",
+
+
     "cmd.option.description": "[選項] 變更個人指令選項",
     "cmd.option.not_exist": "Key `{}` 不存在。",
     "cmd.option.not_color": "`{}` 的類別不是 `color`。",

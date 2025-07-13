@@ -78,6 +78,32 @@ async def on_message(message):
 
 
 
+# Load and unload commands
+@bot.hybrid_command(name="load", description=text("cmd.load.description"))
+async def load(ctx, extension):
+    try:
+        await bot.load_extension(f"cogs.{extension}")
+        await ctx.send(text("cmd.load.loaded", extension))
+    except Exception as e:
+        await ctx.send(text("cmd.load.error", extension, e))
+
+@bot.hybrid_command(name="unload", description=text("cmd.unload.description"))
+async def unload(ctx, extension):
+    try:
+        await bot.unload_extension(f"cogs.{extension}")
+        await ctx.send(text("cmd.unload.unloaded", extension))
+    except Exception as e:
+        await ctx.send(text("cmd.unload.error", extension, e))
+
+@bot.hybrid_command(name="reload", description=text("cmd.reload.description"))
+async def reload(ctx, extension):
+    try:
+        await bot.reload_extension(f"cogs.{extension}")
+        await ctx.send(text("cmd.reload.reloaded", extension))
+    except Exception as e:
+        await ctx.send(text("cmd.reload.error", extension, e))
+
+
 
 # Run the bot
 bot.run(token)
