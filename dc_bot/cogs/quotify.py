@@ -104,7 +104,7 @@ async def quotify(interaction: discord.Interaction, message: discord.Message):
     output.seek(0)
 
     # Send
-    file = discord.File(output, filename="avatar.png")
+    file = discord.File(output, filename="quotify.png")
     await interaction.response.send_message(file=file)
     
 async def setup(bot: commands.Bot):

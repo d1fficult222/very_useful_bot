@@ -1,6 +1,7 @@
-import discord, datetime, asyncio, random
+import discord
 from discord.ext import commands, tasks
 import os
+from dotenv import load_dotenv
 
 import settings
 from lang import text
@@ -9,19 +10,22 @@ from lang import text
 
 
 # Token
-with open("token.txt", "r") as f: token = f.readline()
-if token == "":
+load_dotenv()
+token = os.getenv("TOKEN")
+if not token:
     entered = input(text("bot.token_notfound"))
     if entered == '':
         exit()
     else:
-        print(text("bot.token_entered",entered))
+        print(text("bot.token_entered", entered))
         confirm = input(text("bot.token_confirm"))
         if confirm.upper() == 'Y':
             token = entered
-            with open("token.txt", 'w') as f: f.write(token)
+            with open(".env", "a") as f:
+                f.write(f'\nTOKEN={token}\n')
         else:
             exit()
+                
 
 
 # Create bot instance
@@ -84,6 +88,8 @@ async def load(ctx, extension):
     try:
         await bot.load_extension(f"cogs.{extension}")
         await ctx.send(text("cmd.load.loaded", extension))
+        synced = await bot.tree.sync()
+        await ctx.send(text("bot.commands_synced", len(synced)))
     except Exception as e:
         await ctx.send(text("cmd.load.error", extension, e))
 
@@ -92,6 +98,8 @@ async def unload(ctx, extension):
     try:
         await bot.unload_extension(f"cogs.{extension}")
         await ctx.send(text("cmd.unload.unloaded", extension))
+        synced = await bot.tree.sync()
+        await ctx.send(text("bot.commands_synced", len(synced)))
     except Exception as e:
         await ctx.send(text("cmd.unload.error", extension, e))
 
@@ -100,6 +108,8 @@ async def reload(ctx, extension):
     try:
         await bot.reload_extension(f"cogs.{extension}")
         await ctx.send(text("cmd.reload.reloaded", extension))
+        synced = await bot.tree.sync()
+        await ctx.send(text("bot.commands_synced", len(synced)))
     except Exception as e:
         await ctx.send(text("cmd.reload.error", extension, e))
 

@@ -1,7 +1,12 @@
 # ChangeLog
 
 ### v1.8 2025六月更新
-- [1.8.1]() (2025.6.10) Added a tutorial on developing VeryUsefulBot, Fixes on Quotify, Synced commands
+- [1.8.2](https://github.com/dfficult/very_useful_bot/releases/tag/v1.8.2) (2025.7.17)
+    - 新增：`load`, `unload`, `reload` 指令，方便管理Cog指令
+    - 新增：`ping` 指令，查看延遲
+    - 修改：把 token.txt 改成 .env，增加安全性
+    - 修改：Quotify的圖片名稱改為 `quotify.png`
+- [1.8.1](https://github.com/dfficult/very_useful_bot/releases/tag/v1.8.1) (2025.6.10)
     - 新增：開發 VeryUsefulBot 的教學 (部分)
     - 更改：可以從 `settings.py` 修改 Bot Activity 的類型，不用到 `main.py` 修改
     - 更改：將cog檔案的載入顯示訊息由**指令模組(command modules)**改為**程式套件(packages)**
@@ -10,7 +15,7 @@
     - 修復：Quotify 可以讀取 Embed 裡的內容
     - 修復：`menu.quotify` 原沒有對應的顯示文字，現在加上，名為**Quotify**
 
-- [1.8.0](https://github.com/dfficult/very_useful_bot/releases/tag/v1.8.0) (2025.5.31) Switched to Cog, Added Quotify, and some changes
+- [1.8.0](https://github.com/dfficult/very_useful_bot/releases/tag/v1.8.0) (2025.5.31)
     - 新增： `Quotify` : 將一段話做成引文圖片
     - 新增：英文語言檔案 
     - 更改：此版本使用Cog架構重新編寫程式架構  
@@ -25,15 +30,19 @@
 
 
 ### v1.7 2025五月更新
-- [1.7.2](https://github.com/dfficult/very_useful_bot/commit/690776a64e3a1626e403e800213d740e314c85c4) (2025.5.8) Added Slot Machine
+- [1.7.2](https://github.com/dfficult/very_useful_bot/commit/690776a64e3a1626e403e800213d740e314c85c4) (2025.5.8)
+    Added Slot Machine
     - 新增：Slot Machine
-- [1.7.1](https://github.com/dfficult/very_useful_bot/commit/00c1d9cba497b517cf1feb8ba8ef59868bf5f974) (2025.4.25) Added history to Expense Tracking System, New easter egg, Fixed Wordle Missing Record
+- [1.7.1](https://github.com/dfficult/very_useful_bot/commit/00c1d9cba497b517cf1feb8ba8ef59868bf5f974) (2025.4.25)
+    Added history to Expense Tracking System, New easter egg, Fixed Wordle Missing Record
     - 新增：記帳系統可以查看紀錄 (最近20筆)
     - 新增：一個彩蛋
     - 修復：Wordle 修復紀錄重置問題
-- [1.7.0.02](https://github.com/dfficult/very_useful_bot/commit/61ddf75cf6abfefde6802f8673843e8e07e79efa) (2025.4.14) Fixed common_deg_to_rad bug, Updated Readme.md
+- [1.7.0.02](https://github.com/dfficult/very_useful_bot/commit/61ddf75cf6abfefde6802f8673843e8e07e79efa) (2025.4.14)
+    Fixed common_deg_to_rad bug, Updated Readme.md
     - 修復： `common_deg_to_rad`的錯誤
-- [1.7.0.01](https://github.com/dfficult/very_useful_bot/commit/a60013b8a61c26aa785df2b15287c331e3bce235) (2025.4.5) Fixed Wordle Fatal Bug, Updated Readme.md
+- [1.7.0.01](https://github.com/dfficult/very_useful_bot/commit/a60013b8a61c26aa785df2b15287c331e3bce235) (2025.4.5)
+    Fixed Wordle Fatal Bug, Updated Readme.md
     - 修復：Wordle的錯誤
 - [1.7.0](https://github.com/dfficult/very_useful_bot/commit/dcff8de13117bb927f6a0a1edba376a4f5115d81) (2025.4.5) Multi-Language Support, Expense Tracking System, Right Click Menu, Wordle Send Fix, New Math Command, User Option
     - 新增：記帳系統

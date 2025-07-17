@@ -221,8 +221,26 @@ async def wordcount(interaction: discord.Interaction, message: discord.Message):
 
 
 
+class Ping(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
+    def cog_unload(self):
+        self.bot.remove_command("ping")
+
+    
+    @app_commands.command(name="ping", description=text("cmd.ping.description"))
+    async def ping(self, interaction: discord.Interaction):
+        latency = round(self.bot.latency * 1000)  # s to ms
+        await interaction.response.send_message(text("cmd.ping.latency", latency))
+
+
+
+
+
 async def setup(bot: commands.Bot):
     await bot.add_cog(Calculator(bot))
     await bot.add_cog(Daysleft(bot))
+    await bot.add_cog(Ping(bot))
     bot.tree.add_command(calculate)
     bot.tree.add_command(wordcount)

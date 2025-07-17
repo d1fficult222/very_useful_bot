@@ -28,6 +28,9 @@
     "cmd.reload.reloaded": "Packages reloaded: {}",
     "cmd.Reload.error": "[ERROR] Error while reloading:{0}\nError: {1}",
 
+    "cmd.ping.description": "查看延遲",
+    "cmd.ping.latency": "{} ms",
+
     "cmd.option.description": "[Option] Change user option",
     "cmd.option.not_exist": "Key `{}` does not exist.",
     "cmd.option.not_color": "`{}` is not `color`.",

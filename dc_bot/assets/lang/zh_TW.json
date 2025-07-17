@@ -26,8 +26,10 @@
     "cmd.unload.error": "無法卸載{0}\n{1}",
     "cmd.reload.description": "重新載入程式套件",
     "cmd.reload.reloaded": "已重新載入程式套件: {}",
-    "cmd.Reload.error": "無法重新載入{0}\n{1}",
+    "cmd.reload.error": "無法重新載入{0}\n{1}",
 
+    "cmd.ping.description": "查看延遲",
+    "cmd.ping.latency": "{} ms",
 
     "cmd.option.description": "[選項] 變更個人指令選項",
     "cmd.option.not_exist": "Key `{}` 不存在。",

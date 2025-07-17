@@ -1,4 +1,4 @@
 __pycache/
-dc_bot/token.txt
+dc_bot/.env
 dc_bot/assets
 dc_bot/cogs/__pycache/
