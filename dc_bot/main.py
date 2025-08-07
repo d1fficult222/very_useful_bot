@@ -13,18 +13,8 @@ from lang import text
 load_dotenv()
 token = os.getenv("TOKEN")
 if not token:
-    entered = input(text("bot.token_notfound"))
-    if entered == '':
-        exit()
-    else:
-        print(text("bot.token_entered", entered))
-        confirm = input(text("bot.token_confirm"))
-        if confirm.upper() == 'Y':
-            token = entered
-            with open(".env", "a") as f:
-                f.write(f'\nTOKEN={token}\n')
-        else:
-            exit()
+    print(text("bot.token_notfound"))
+    exit()
                 
 
 
@@ -83,35 +73,60 @@ async def on_message(message):
 
 
 # Load and unload commands
+class EnterPswView(discord.ui.Modal, title=text("bot.enterpsw.title")):
+    def __init__(self, do: str, extension: str):
+        super().__init__()
+        self.do = do
+        self.extension = extension
+    
+    password_box = discord.ui.TextInput(
+        style=discord.TextStyle.short,
+        label=text("bot.enterpsw"),
+        required=True,
+        placeholder=text("bot.enterpsw.placeholder")
+    )
+    
+    async def on_submit(self, interaction: discord.Interaction):
+        password = os.getenv("PASSWORD")
+        if password is None:
+            await interaction.response.send_message(text("bot.warning.no_psw"), ephemeral=True)
+        elif password != self.password_box.value:
+            await interaction.response.send_message(text("bot.incorrect_psw"),ephemeral=True)
+            return
+        
+        await interaction.response.defer(ephemeral=True)
+
+        try:
+            match self.do:
+                case "load":
+                    await bot.load_extension(f"cogs.{self.extension}")
+                    synced = await bot.tree.sync()
+                    await interaction.followup.send(f"{text('cmd.load.loaded', self.extension)}\n{text('bot.commands_synced', len(synced))}")
+                case "unload":
+                    await bot.unload_extension(f"cogs.{self.extension}")
+                    synced = await bot.tree.sync()
+                    await interaction.followup.send(f"{text('cmd.unload.unloaded', self.extension)}\n{text('bot.commands_synced', len(synced))}")
+                case "reload":
+                    await bot.reload_extension(f"cogs.{self.extension}")
+                    synced = await bot.tree.sync()
+                    await interaction.followup.send(f"{text('cmd.reload.reloaded', self.extension)}\n{text('bot.commands_synced', len(synced))}")
+        except Exception as e:
+            await interaction.followup.send(text(f"cmd.{self.do}.error", self.extension, e))
+
+
+
+
 @bot.hybrid_command(name="load", description=text("cmd.load.description"))
-async def load(ctx, extension):
-    try:
-        await bot.load_extension(f"cogs.{extension}")
-        await ctx.send(text("cmd.load.loaded", extension))
-        synced = await bot.tree.sync()
-        await ctx.send(text("bot.commands_synced", len(synced)))
-    except Exception as e:
-        await ctx.send(text("cmd.load.error", extension, e))
+async def load(ctx: commands.Context, extension: str):
+    await ctx.interaction.response.send_modal(EnterPswView(do="load", extension=extension))
 
 @bot.hybrid_command(name="unload", description=text("cmd.unload.description"))
-async def unload(ctx, extension):
-    try:
-        await bot.unload_extension(f"cogs.{extension}")
-        await ctx.send(text("cmd.unload.unloaded", extension))
-        synced = await bot.tree.sync()
-        await ctx.send(text("bot.commands_synced", len(synced)))
-    except Exception as e:
-        await ctx.send(text("cmd.unload.error", extension, e))
+async def unload(ctx: commands.Context, extension: str):
+    await ctx.interaction.response.send_modal(EnterPswView(do="unload", extension=extension))
 
 @bot.hybrid_command(name="reload", description=text("cmd.reload.description"))
-async def reload(ctx, extension):
-    try:
-        await bot.reload_extension(f"cogs.{extension}")
-        await ctx.send(text("cmd.reload.reloaded", extension))
-        synced = await bot.tree.sync()
-        await ctx.send(text("bot.commands_synced", len(synced)))
-    except Exception as e:
-        await ctx.send(text("cmd.reload.error", extension, e))
+async def reload(ctx: commands.Context, extension: str):
+    await ctx.interaction.response.send_modal(EnterPswView(do="reload", extension=extension))
 
 
 

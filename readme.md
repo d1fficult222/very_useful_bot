@@ -1,6 +1,6 @@
 # very_useful_bot
-[v1.8.2](docs/changelog.md)  
-2025.07.17  
+[v1.8.3](docs/changelog.md)  
+2025.8.7
 
 VeryUsefulBot是一個非常有用的Discord機器人，以下是主打的功能：
 

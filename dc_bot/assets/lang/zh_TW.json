@@ -17,6 +17,12 @@
     "bot.cogs_load_count": "已載入 {0} 個程式套件，未載入 {1} 個程式套件",
     "bot.commands_synced": "{} 個指令已同步",
     "bot.commands_sync_error": "同步指令失敗\n錯誤：{}",
+    "bot.enterpsw": "你必須是管理員，才能使用此指令",
+    "bot.enterpsw.title": "請輸入密碼",
+    "bot.enterpsw.placeholder": "請輸入管理員密碼",
+    "bot.warning.no_psw": "你沒有設定管理員密碼，請參考[此文件說明](https://github.com/d1fficult222/very_useful_bot/blob/main/docs/tutorial.md)，設定一個管理員密碼",
+    "bot.incorrect_psw": "密碼錯誤，如果你忘記密碼，請至 `.env` 檔案修改，可參考[此文件說明](https://github.com/d1fficult222/very_useful_bot/blob/main/docs/tutorial.md)",
+
 
     "cmd.load.description": "載入程式套件",
     "cmd.load.loaded": "已載入程式套件: {}",

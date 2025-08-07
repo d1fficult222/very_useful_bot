@@ -17,6 +17,11 @@
     "bot.cogs_load_count": "Loaded {0} packages, {1} packages not loaded.",
     "bot.commands_synced": "{} Commands synced successfully.",
     "bot.commands_sync_error": "[ERROR] Failed to sync commands.\nError: {0}",
+    "bot.enterpsw.title": "Enter Password",
+    "bot.enterpsw.placeholder": "Enter Admin password",
+    "bot.warning.no_psw": "You did not setup an password. Follow this [document](https://github.com/d1fficult222/very_useful_bot/blob/main/docs/tutorial.md) to set up a password.",
+    "bot.incorrect_psw": "Password incorrect. You can change it in `.env` if you forgot. [Reference](https://github.com/d1fficult222/very_useful_bot/blob/main/docs/tutorial.md)",
+
 
     "cmd.load.description": "Load package",
     "cmd.load.loaded": "Packages loaded: {}",
