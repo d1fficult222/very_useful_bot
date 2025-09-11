@@ -1,6 +1,6 @@
 # very_useful_bot
-[v1.8.3](docs/changelog.md)  
-2025.8.7
+[v1.8.4](docs/changelog.md)  
+2025.9.11
 
 VeryUsefulBot是一個非常有用的Discord機器人，以下是主打的功能：
 
@@ -12,9 +12,6 @@ VeryUsefulBot是一個非常有用的Discord機器人，以下是主打的功能
 
 - ### 數學計算
     解決一些簡單數學，例如約分分數、行列式、向量的內外積等。
-
-- ### 記帳
-    簡易的記帳系統。
 
 - ### 單字卡
     複習單字的小工具。
@@ -50,29 +47,27 @@ python3 main.py
 VeryUsefulBot 目前使用 app_commands 的斜線指令 (Slash Command)，之後將改用 hybrid_command，以增加前綴指令的支援。
 
 ### 遊戲
-[`/wordle`](manual/wordle.md) `/slot`
+[`/wordle`](docs/wordle.md) `/slot`
 
 ### 工具
 `/calculator` `/daysleft`
 
 ### 單字卡
-`/flashcard`
+[`/flashcard`](#單字卡)
 
 ### 隨機
-[`/eat`](manual/eat.md/#eat) `/addfood` [`/dice`](manual/math.md/#dice-faces) [`/rand`](manual/math.md/#rand-items)
+[`/eat`](docs/eat.md/#eat) [`/dice`](docs/math.md/#dice-faces) [`/rand`](docs/math.md/#rand-items)
 
 
 ### 提醒
-[`/notice_after`](manual/notice.md/#notice) `/notice_at` `/notice_delete` `/note` `/notice_list`
+[`/note_list`](docs/notice.md/#note_list) [`/notice_after`](docs/notice.md/#notice_after) [`/notice_at`](docs/notice.md/#notice_at) [`/notice_delete`](docs/notice.md/#notice_delete) [`/sticky_note`](docs/notice.md/#sticky_note) 
 
 ### OJ
-`/code` `/submit_code`
+[`/code`](docs/vuboj.md/#顯示題目) [`/submit_code`](docs/vuboj.md/#提交程式碼)
 
 ### 數學
-`/average` `/c` `/common_deg_to_rad` `/correlation` `/det2` `/det3` `/factorize` `/invrmtx2` `/p` `/simfrac` `/solve21` `/solve31` `/surface` `/vector` `/vectorl` 
+[`/average`](docs/math.md/#average) [`/c`](docs/math.md/#c) [`/common_deg_to_rad`](docs/math.md/#common_deg_to_rad) [`/correlation`](docs/math.md/#correlation) [`/det2`](docs/math.md/#det2) [`/det3`](docs/math.md/#det`) [`/factorize`](docs/math.md/#factorize) [`/invrmtx2`](docs/math.md/#invrmtx2) [`/p`](docs/math.md/#p) [`/simfrac`](docs/math.md/#simfrac) [`/solve21`](docs/math.md/#solve21) [`/solve31`](docs/math.md/#solve31) [`/surface`](docs/math.md/#surface) [`/vector`](docs/math.md/#vector) [`/vectorl`](docs/math.md/#vectorl) 
 
-### 記帳
-`/m_new_record` `/m_wallet`
 
 ### 其他
-[`/option`](manual/options.md) `/quotify` `/load` `/unload` `/reload` `/ping`
+[`/option`](docs/options.md) `/quotify` [`/load`](docs/tutorial.md/#載入卸載重載指令) [`/unload`](docs/tutorial.md/#載入卸載重載指令) [`/reload`](docs/tutorial.md/#載入卸載重載指令) [`/ping`](docs/tutorial.md/#測試)

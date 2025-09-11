@@ -63,6 +63,8 @@
     "cmd.notice_at.year": "Year",
     "cmd.notice_at.month": "Month",
     "cmd.notice_at.day": "Date",
+    "cmd.notice_at.hour": "Hour",
+    "cmd.notice_at.minute": "Minute",
     "cmd.notice_at.exist": "The event name exists, please use another one instead.",
     "cmd.notice_at.set": "Notification Set",
     "cmd.notice_at.trigger_time": "Time",

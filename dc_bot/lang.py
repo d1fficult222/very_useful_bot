@@ -2,10 +2,10 @@ import json
 import settings
 
 try:
-    with open(f"assets/lang/{settings.LANG}.json", 'r') as f:
+    with open(f"assets/lang/{settings.LANG}.json", 'r', encoding="UTF-8") as f:
         lang = json.load(f)
 except FileNotFoundError:
-    with open(f"assets/lang/zh_TW.json", 'r') as f:
+    with open(f"assets/lang/zh_TW.json", 'r', encoding="UTF-8") as f:
         lang = json.load(f)
 
 def text(id: str, *args) -> str:

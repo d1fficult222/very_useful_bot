@@ -1,8 +1,12 @@
+[< 返回安裝說明](../readme.md#安裝說明) 
+
 # 操作、管理、開發 VeryUsefulBot
 [VeryUsefulBot](https://github.com/d1fficult222/very_useful_bot) 是一款使用 Python 開發的 Discord 機器人，使用 [discord.py](https://github.com/Rapptz/discord.py), [pillow](https://github.com/python-pillow/Pillow) 等多個 Python 模組。本說明文件將說明 VeryUsefulBot的架構，以及簡易的操作與開發說明。
 
 
 > 本教學適用於 [1.8.0](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.0) 以上的版本，[1.6 Beta 1](https://github.com/d1fficult222/very_useful_bot/commit/0b451bfbc8d80d88682abdf2cc80a6255d0e7c29) ~ [1.7.2](https://github.com/d1fficult222/very_useful_bot/commit/690776a64e3a1626e403e800213d740e314c85c4) 以及 [1.0](https://github.com/d1fficult222/very_useful_bot/commit/58cbbdc727c8fb132622094c79042119ebf32742) ~ [1.5.3.01](https://github.com/d1fficult222/very_useful_bot/commit/ebe4429aee3f8b719e3b20cbeb88e701b7b62a43) 的版本並未使用 Cog 架構，不適用此篇說明。
+
+> 部分內容由 AI 生成
 
 ### 目錄
 - [快速操作說明](#快速操作說明)
@@ -40,6 +44,10 @@
     ```bash
     python3 main.py
     ```
+
+### 測試
+使用 `/ping` 指令查看延遲，若有成功返回，代表機器人有在運作。
+
 ### 載入/卸載/重載指令
 VeryUsefulBot 提供上述功能，方便在不停止主程式的情況下調適與除錯指令。
 1. `load` - 載入檔案  

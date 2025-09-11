@@ -64,6 +64,8 @@
     "cmd.notice_at.year": "年",
     "cmd.notice_at.month": "月",
     "cmd.notice_at.day": "日",
+    "cmd.notice_at.hour": "小時",
+    "cmd.notice_at.minute": "分鐘",
     "cmd.notice_at.exist": "該提醒事件已存在，請換別的名稱",
     "cmd.notice_at.set": "已設置提醒",
     "cmd.notice_at.trigger_time": "提醒時間",
@@ -259,7 +261,7 @@
     "cmd.factorize.is_prime": "`{}` 是質數",
     "cmd.factorize.result": "質因數分解 `{}`",
 
-    "cmd.solve21.description": "[解方程式] 解二元一次方程式",
+    "cmd.solve21.description": "[解方程式] 解二元一次方程組",
     "cmd.solve21.eq1": "第一式",
     "cmd.solve21.eq2": "第二式",
     "cmd.solve21.one_sol": "此方程組恰有一解",
@@ -267,7 +269,7 @@
     "cmd.solve21.no_sol": "此方程組有無限多解",
     "cmd.solve21.err": "錯誤",
     
-    "cmd.solve31.description": "[解方程式] 解二元一次方程式",
+    "cmd.solve31.description": "[解方程式] 解三元一次方程組",
     "cmd.solve31.eq1": "第一式",
     "cmd.solve31.eq2": "第二式",
     "cmd.solve31.eq3": "第三式",
