@@ -1,6 +1,10 @@
 # ChangeLog
 
-### v1.8 2025六七八月更新
+### v1.9 2025十月更新
+- [1.9.0](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.2) (2025.10.31)
+    - 新增：課表系統
+
+### v1.8 2025夏季更新
 - [1.8.4](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.2) (2025.9.11)
     - 修改：更新了所有指令說明
     - 修復：`cmd.notice_at.hour`, `cmd.notice_at.minute`, `cmd.solve21.description`, `cmd.solve31.description`
