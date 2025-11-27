@@ -6,7 +6,7 @@
 - [Latest] [1.9.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.1) (2025.11.27)
     - 新增：`about` 指令，可以查看版本
     - 新增：可以自訂時間表顏色
-    - 更改：將之前的 Changlog 錯誤或缺少的資訊修正及補充完整
+    - 更改：將之前的 Changelog 錯誤或缺少的資訊修正及補充完整
     - 更改：對調 instructor 與 location 的順序
     - 修復：將課表缺少的 UI 文字補上
 - [1.9.0](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.0) (2025.10.31)

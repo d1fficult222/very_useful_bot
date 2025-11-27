@@ -4,7 +4,7 @@ from discord import app_commands, File
 from discord.ui import Button, View
 import datetime, json, io
 import settings
-from user_options import get_user_options
+from cogs.user_options import get_user_options
 from lang import *
 from PIL import Image, ImageDraw, ImageFont
 
@@ -140,7 +140,7 @@ class TimeTable(commands.Cog):
         image.save(buffer, format='PNG')    
         buffer.seek(0)
 
-        await interaction.response.send_message(file=File(buffer, text("timetable.image.png")))
+        await interaction.response.send_message(file=File(buffer, text("timetable.image.png") + ".png"))
 
     # Show next class
     @app_commands.command(name="next_class", description=text("cmd.next_class.description"))
