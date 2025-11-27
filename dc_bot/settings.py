@@ -4,7 +4,7 @@ import settings and access by settings.xxx
 """
 import discord
 
-Version = "1.8.2"
+Version = "1.9.1"
 LANG = "zh_TW"
 class Colors:
     notice = discord.Color.dark_magenta()

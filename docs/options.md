@@ -13,7 +13,12 @@
 - [`WordleGreenColor`](#wordlegreencolor)
 - [`WordleImageMarginRight`](#wordleimagemarginright)
 - [`WordleYellowColor`](#wordleyellowcolor)
-
+- [`CalendarBlockSize`](#calendarblocksize)
+- [`CalendarBlockMargin`](#calendarblockmargin)
+- [`CalendarBackgroundColor`](#calendarbackgroundcolor)
+- [`CalendarColor1`](#calendarcolor1)
+- [`CalendarFontColor1`](#calendarfontcolor1)
+                                       
 
 ---
 
@@ -109,5 +114,41 @@
 預設: `#b59f3b`  
 
 
+---
+### CalendarBlockSize
+**變更行事曆格子大小**
+
+類別: `int`  
+預設: `50`
 
 
+---
+### CalendarBlockMargin
+**變更行事曆格子間距**
+
+類別: `int`  
+預設: `5`
+
+
+---
+### CalendarBackgroundColor
+**變更行事曆背景顏色**
+
+類別: `str`  
+預設: `#23283b`
+
+
+---
+### CalendarColor1
+**變更行事曆強調顏色1 (Accent Color 1)**
+
+類別: `str`  
+預設: `#f7ca18`
+
+
+---
+### CalendarFontColor1
+**行事曆以強調顏色1作為背景時的文字顏色**
+
+類別: `str`  
+預設: `#e0e6ed`

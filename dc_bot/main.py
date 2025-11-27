@@ -128,7 +128,14 @@ async def unload(ctx: commands.Context, extension: str):
 async def reload(ctx: commands.Context, extension: str):
     await ctx.interaction.response.send_modal(EnterPswView(do="reload", extension=extension))
 
-
+@bot.hybrid_command(name="about", description=text("bot.about"))
+async def about(ctx: commands.Context):
+    embed = discord.Embed(
+        title="{} {}".format(text("bot.name"), settings.Version),
+        description=text("bot.description"),
+        color=settings.Colors.success
+    )
+    await ctx.interaction.response.send_message(embed=embed)
 
 # Run the bot
 bot.run(token)

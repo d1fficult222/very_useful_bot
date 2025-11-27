@@ -31,7 +31,13 @@ defaults = {
     "WordleGrayColor": Options("color", "#3A3A3C"),
     "WordleGreenColor": Options("color", "#538D4E"),
     "WordleImageMargin": Options("int", 0),
-    "WordleYellowColor": Options("color", "#B59F3B")
+    "WordleYellowColor": Options("color", "#B59F3B"),
+    "CalendarBlockSize": Options("int", 50),
+    "CalendarBlockMargin": Options("int", 5),
+    "CalendarBackgroundColor": Options("color", "#23283b"),
+    "CalendarColor1": Options("color", "#f7ca18"),
+    "CalendarFontColor1": Options("color", "#e0e6ed")
+                                       
 }
 
 def get_user_options(user_id: int, option_id: str) -> any:

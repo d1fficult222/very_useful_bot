@@ -22,7 +22,8 @@
     "bot.enterpsw.placeholder": "請輸入管理員密碼",
     "bot.warning.no_psw": "你沒有設定管理員密碼，請參考[此文件說明](https://github.com/d1fficult222/very_useful_bot/blob/main/docs/tutorial.md)，設定一個管理員密碼",
     "bot.incorrect_psw": "密碼錯誤，如果你忘記密碼，請至 `.env` 檔案修改，可參考[此文件說明](https://github.com/d1fficult222/very_useful_bot/blob/main/docs/tutorial.md)",
-
+    "bot.about": "關於 VeryUsefulBot",
+    "bot.description": "VeryUsefulBot 是一個 Discord 機器人，每月更新，給你一些看似實用實則沒用的功能",
 
     "cmd.load.description": "載入程式套件",
     "cmd.load.loaded": "已載入程式套件: {}",
@@ -375,5 +376,24 @@
     "cmd.common_deg_to_rad.angle": "角度",
 
     "menu.quotify": "Quotify",
-    "menu.quotify.no_content": "沒有內容可以引用"
+    "menu.quotify.no_content": "沒有內容可以引用",
+
+    "modal.timetable.title": "匯入課表 json 檔",
+    "modal.timetable.label": "在此貼上 json 檔的文字內容",
+    "modal.timetable.placeholder": "請至 d1fficult222.github.io/vub_timetable_tools 產生檔案",
+    "modal.timetable.success": "匯入成功",
+    "modal.timetable.error": "匯入失敗，請連絡管理員或等待下個版本",
+    "cmd.settable.description": "匯入課表",
+    "cmd.timetable.description": "顯示課表",
+    "cmd.timetable.notfound": "抱歉，我們找不到您的課表",
+    
+    "timetable.image.png": "課表 v1.9.1",
+    
+    "cmd.next_class.description": "顯示下一節課的資訊",
+    "cmd.next_class.notfound": "抱歉，我們找不到您的課表",
+    "timetable.next.class": "下一節課為：{}",
+    "timetable.next.time": "時間：{}",
+    "timetable.location": "地點：{}",
+    "timetable.instructor": "指導者：{}",
+    "timetable.nonext": "今日已無課程"
 }

@@ -21,6 +21,8 @@
     "bot.enterpsw.placeholder": "Enter Admin password",
     "bot.warning.no_psw": "You did not setup an password. Follow this [document](https://github.com/d1fficult222/very_useful_bot/blob/main/docs/tutorial.md) to set up a password.",
     "bot.incorrect_psw": "Password incorrect. You can change it in `.env` if you forgot. [Reference](https://github.com/d1fficult222/very_useful_bot/blob/main/docs/tutorial.md)",
+    "bot.about": "About VeryUsefulBot",
+    "bot.description": "VeryUsefulBot is a Discord bot with useful and useless features. Monthly update btw.",
 
 
     "cmd.load.description": "Load package",
@@ -374,5 +376,24 @@
     "cmd.common_deg_to_rad.angle": "Angle in Degree",
 
     "menu.quotify": "Quotify",
-    "menu.quotify.no_content": "No content to quote"
+    "menu.quotify.no_content": "No content to quote",
+
+    "modal.timetable.title": "Import timetable json file",
+    "modal.timetable.label": "Paste the text in the json file",
+    "modal.timetable.placeholder": "Generate it on d1fficult222.github.io/vub_timetable_tools",
+    "modal.timetable.success": "Success!",
+    "modal.timetable.error": "Failed! We'll probably fix it in the next version :)",
+    "cmd.settable.description": "Import timetable",
+    "cmd.timetable.description": "Show timetable",
+    "cmd.timetable.notfound": "Sorry, we could not find your timetable.",
+    
+    "timetable.image.png": "timetable",
+    
+    "cmd.next_class.description": "Show your next class",
+    "cmd.next_class.notfound": "Sorry, we could not find your timetable.",
+    "timetable.next.class": "Next: {}",
+    "timetable.next.time": "Time: {}",
+    "timetable.location": "Location: {}",
+    "timetable.instructor": "Instructor: {}",
+    "timetable.nonext": "No other class today!"
 }

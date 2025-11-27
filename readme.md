@@ -1,10 +1,11 @@
 # very_useful_bot
-[v1.9.0](docs/changelog.md)  
-2025.10.31
+[v1.9.1](docs/changelog.md)  
+2025.11.27
 
 VeryUsefulBot是一個非常有用的Discord機器人，以下是主打的功能：
 
 - ### 課表系統
+    [!] 之後將會換成更強大的行事曆系統
     儲存課表，查詢下一節課是什麼
 
 - ### Wordle

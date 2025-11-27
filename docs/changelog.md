@@ -1,70 +1,78 @@
 # ChangeLog
 
-### v1.9 2025十月更新
-- [1.9.0](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.2) (2025.10.31)
-    - 新增：課表系統
+### v1.9 課表/時間表/行事曆
+- [Beta] 1.9.2 (December 2025)
+    - 將會完成行事曆的大多功能，並淘汰 `timetable.py` 的內容
+- [Latest] [1.9.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.1) (2025.11.27)
+    - 新增：`about` 指令，可以查看版本
+    - 新增：可以自訂時間表顏色
+    - 更改：將之前的 Changlog 錯誤或缺少的資訊修正及補充完整
+    - 更改：對調 instructor 與 location 的順序
+    - 修復：將課表缺少的 UI 文字補上
+- [1.9.0](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.0) (2025.10.31)
+    - 新增：加入了課表系統 (`timetable.py`)
+      1. 至[網頁工具](https://d1fficult222.github.io/vub_timetable_tools/)產生 json 檔
+      2. 使用 `/settable` 指令匯入
+      3. 使用 `/nextlass` 與 `/timetable` 指令顯示
 
-### v1.8 2025夏季更新
+### v1.8 引文圖片
 - [1.8.4](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.2) (2025.9.11)
-    - 修改：更新了所有指令說明
-    - 修復：`cmd.notice_at.hour`, `cmd.notice_at.minute`, `cmd.solve21.description`, `cmd.solve31.description`
-    - 修復：以 UTF-8 開啟語言檔案
+    - 更改：更新 `docs` 資料夾中大部分指令說明
+    - 修復：加上對應的文字：`cmd.notice_at.hour`, `cmd.notice_at.minute`, `cmd.solve21.description`, `cmd.solve31.description`
+    - 修復：現在會以 UTF-8 開啟語言檔案，可以正確讀取中文語言檔案
 - [1.8.3](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.2) (2025.8.7)
-    - 修改：`load`, `unload`, `reload` 指令需要管理員密碼
+    - 更改：現在 `load`, `unload`, `reload` 指令需要管理員密碼
 - [1.8.2](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.2) (2025.7.17)
     - 新增：`load`, `unload`, `reload` 指令，方便管理Cog指令
-    - 新增：`ping` 指令，查看延遲
-    - 修改：把 token.txt 改成 .env，增加安全性
-    - 修改：Quotify的圖片名稱改為 `quotify.png`
+    - 新增：`ping` 指令，可以查看延遲
+    - 更改：把 `token.txt` 改成 `.env`，增加安全性
+    - 更改：Quotify 的圖片名稱改為 `quotify.png`
 - [1.8.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.1) (2025.6.10)
     - 新增：開發 VeryUsefulBot 的教學 (部分)
     - 更改：可以從 `settings.py` 修改 Bot Activity 的類型，不用到 `main.py` 修改
-    - 更改：將cog檔案的載入顯示訊息由**指令模組(command modules)**改為**程式套件(packages)**
+    - 更改：將 cog 檔案的載入顯示訊息由**指令模組(command modules)**改為**程式套件(packages)**
     - 修復：指令現在會同步到客戶端，部分更名的指令可以使用
     - 修復：Quotify 的作者修正為訊息的作者，非使用指令的作者
     - 修復：Quotify 可以讀取 Embed 裡的內容
-    - 修復：`menu.quotify` 原沒有對應的顯示文字，現在加上，名為**Quotify**
+    - 修復：`menu.quotify` 加上對應的顯示文字 **Quotify**
 - [1.8.0](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.0) (2025.5.31)
-    - 新增： `Quotify` : 將一段話做成引文圖片
+    - 新增： `Quotify` ：將一段話做成引文圖片
     - 新增：英文語言檔案 
-    - 更改：此版本使用Cog架構重新編寫程式架構  
+    - 新增：第一個 Release 版本
+    - 更改：此版本使用 Cog 架構重新編寫程式架構  
     - 更改：將 `calculator`, `daysleft`, `wordcount` 整合至 `tools.py`
     - 更改：重新編寫架構同時，移除以下指令: `addfood`, `help`
     - 更改：重新命名 `expense.py` -> `money_track.py`
     - 更改：Wordle程式中的陣列排序以及大小寫切換改用Python內建，以改進效能
     - 更改：將 `changlog` 從 `readme.md` 中獨立出來
-    - 移除： `.vscode` 自訂輸入
+    - 移除： `.vscode` 快速輸入
     - 移除：計算機黑名單
-    - 移除： `my_address` 彩蛋 (1.7.1) ( `hello world` 彩蛋仍保留)
+    - 移除： `my_address` 彩蛋 (1.7.1) (`hello world` 仍保留)
 
 
-### v1.7 2025五月更新
+### v1.7 新記帳系統與拉霸機
 - [1.7.2](https://github.com/d1fficult222/very_useful_bot/commit/690776a64e3a1626e403e800213d740e314c85c4) (2025.5.8)
-    Added Slot Machine
     - 新增：Slot Machine
 - [1.7.1](https://github.com/d1fficult222/very_useful_bot/commit/00c1d9cba497b517cf1feb8ba8ef59868bf5f974) (2025.4.25)
-    Added history to Expense Tracking System, New easter egg, Fixed Wordle Missing Record
     - 新增：記帳系統可以查看紀錄 (最近20筆)
-    - 新增：一個彩蛋
+    - 新增：`my_address` 彩蛋 (回傳隨機 IP 地址)
     - 修復：Wordle 修復紀錄重置問題
 - [1.7.0.02](https://github.com/d1fficult222/very_useful_bot/commit/61ddf75cf6abfefde6802f8673843e8e07e79efa) (2025.4.14)
-    Fixed common_deg_to_rad bug, Updated Readme.md
-    - 修復： `common_deg_to_rad`的錯誤
+    - 修復：指令 `common_deg_to_rad`的錯誤
 - [1.7.0.01](https://github.com/d1fficult222/very_useful_bot/commit/a60013b8a61c26aa785df2b15287c331e3bce235) (2025.4.5)
-    Fixed Wordle Fatal Bug, Updated Readme.md
     - 修復：Wordle的錯誤
-- [1.7.0](https://github.com/d1fficult222/very_useful_bot/commit/dcff8de13117bb927f6a0a1edba376a4f5115d81) (2025.4.5) Multi-Language Support, Expense Tracking System, Right Click Menu, Wordle Send Fix, New Math Command, User Option
-    - 新增：記帳系統
+- [1.7.0](https://github.com/d1fficult222/very_useful_bot/commit/dcff8de13117bb927f6a0a1edba376a4f5115d81) (2025.4.5)
+    - 新增：新記帳系統
     - 新增：語言檔案
     - 新增：右鍵選單
-    - 新增：`common_deg_to_rad` 
-    - 新增：`user_options`
-    - 更改：`dice` 可以決定一次投擲幾顆 
-    - 更改：`surface` 結果自動化簡
+    - 新增：指令 `common_deg_to_rad` 常見角度轉弧度 
+    - 新增：指令 `user_options` 使用者自訂選項
+    - 更改：指令 `dice` 可以決定一次投擲幾顆 
+    - 更改：指令 `surface` 結果自動化簡
     - 更改：重新命名 `note` -> `sticky_notes`
-    - 修復：`notice`不能輸入0分
-    - 修復：`det2`, `det3`, `invrmtx` 對齊
-### v1.6 OJ and Notice (Again)
+    - 修復：指令 `notice`不能輸入0分
+    - 修復：指令 `det2`, `det3`, `invrmtx` 內容對齊
+### v1.6 Online Judge 和 提醒系統
 - [1.6.0](https://github.com/d1fficult222/very_useful_bot/commit/c3912645dc450a1694cf162abf68971de95962ff) Fixed oj compile error, removed new_code_q/today/mlend/mdelete/mhistory commands, redesigned code, added sticky notes, made embed colors environmental variables
 - [1.6 Beta 3](https://github.com/d1fficult222/very_useful_bot/commit/2e903e3d92a82bbf0bd582de5f3acf775ccaf59d) Updated notice system, Minor fixes to wordle.py and eat.py
 - [1.6 Beta 2.1](https://github.com/d1fficult222/very_useful_bot/commit/10ea36ca48434768c5f14187c06a35c87bdb936e) Updated `readme.md`

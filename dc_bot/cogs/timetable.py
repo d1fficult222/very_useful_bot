@@ -4,7 +4,7 @@ from discord import app_commands, File
 from discord.ui import Button, View
 import datetime, json, io
 import settings
-# from user_options import get_user_options
+from user_options import get_user_options
 from lang import *
 from PIL import Image, ImageDraw, ImageFont
 
@@ -56,13 +56,12 @@ class TimeTable(commands.Cog):
             return
         
 
-        # HORRIBLE VARIABLE NAMES, PLEASE FIX IN THE NEXT VERSION !!!
         # Image Setup
-        SIZE = 50
-        MARGIN = 5
-        CELL_COLOR = "#23283b"
-        OCCUPIED_COLOR = "#f7ca18"
-        TEXT_COLOR = "#e0e6ed"
+        SIZE = get_user_options(interaction.user.id, "CalendarBlockSize")
+        MARGIN = get_user_options(interaction.user.id, "CalendarBlockMargin")
+        CELL_COLOR = get_user_options(interaction.user.id, "CalendarBackgroundColor")
+        OCCUPIED_COLOR = get_user_options(interaction.user.id, "CalendarColor1")
+        TEXT_COLOR = get_user_options(interaction.user.id, "CalendarFontColor1")
         # Draw image
         WEEKDAYS = 5 + 1  # plus one for col 1 (time intervals)
         BLOCKS = 13 + 1  # plus one for row 1 (mon, tue, ...)
@@ -180,8 +179,8 @@ class TimeTable(commands.Cog):
                 title=text("timetable.next.class", name), 
                 description=text("timetable.next.time", ':'.join(map(str, timetable["timeArray"][j])))
             )
-            if instructor != '-': embed.add_field(name=text("timetable.instructor"), value=instructor)
             if location != '-': embed.add_field(name=text("timetable.location"), value=location)
+            if instructor != '-': embed.add_field(name=text("timetable.instructor"), value=instructor)
 
             await interaction.response.send_message(embed=embed)
         else:
