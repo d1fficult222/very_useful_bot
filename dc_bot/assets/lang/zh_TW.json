@@ -23,7 +23,7 @@
     "bot.warning.no_psw": "你沒有設定管理員密碼，請參考[此文件說明](https://github.com/d1fficult222/very_useful_bot/blob/main/docs/tutorial.md)，設定一個管理員密碼",
     "bot.incorrect_psw": "密碼錯誤，如果你忘記密碼，請至 `.env` 檔案修改，可參考[此文件說明](https://github.com/d1fficult222/very_useful_bot/blob/main/docs/tutorial.md)",
     "bot.about": "關於 VeryUsefulBot",
-    "bot.description": "VeryUsefulBot 是一個 Discord 機器人，每月更新，給你一些看似實用實則沒用的功能",
+    "bot.description": "VeryUsefulBot 是一個 Discord 機器人，給你一些看似實用實則沒用的功能",
 
     "cmd.load.description": "載入程式套件",
     "cmd.load.loaded": "已載入程式套件: {}",
