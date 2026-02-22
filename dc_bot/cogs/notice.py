@@ -24,30 +24,32 @@ def check_notice():
     day = now.day
     hour = now.hour
     minute = now.minute
+    weekday = now.isoweekday()
     if len(events) == 0: return None
     success = False
     returnlist = []
-    for i in events[:]:  # 用 events[:] 避免遍歷時刪除出錯
-        if i["note"]: continue
-        if (i["year"] == year and
-            i["month"] == month and
-            i["day"] == day and
-            i["hour"] == hour and
-            i["minute"] == minute
-        ):
-            success = True
-            embed = discord.Embed(
-                title=text("notice.title"),
-                description=f'## {i["event"]}',
-                color=settings.Colors.notice,
-                timestamp=datetime.datetime.now()
-            )
-            channel = i["channel"]
-            user = i["user"]
-            events.remove(i)
-            sync_json()
-            returnlist.append([user, channel, embed])
+    for i in events[:]:
+        if i["note"] == 0:
+            # notice_at, notice_after
+            success = i["year"] == year and i["month"] == month and i["day"] == day and i["hour"] == hour and i["minute"] == minute      
+        elif i["note"] == 2:
+            # routine
+            success = i["weekday"] == weekday and i["hour"] == hour and i["minute"] == minute
+        else:
+            # note
+            continue
     if success:
+        embed = discord.Embed(
+            title=text("notice.title"),
+            description=f'## {i["event"]}',
+            color=settings.Colors.notice,
+            timestamp=datetime.datetime.now()
+        )
+        channel = i["channel"]
+        user = i["user"]
+        events.remove(i)
+        sync_json()
+        returnlist.append([user, channel, embed])
         return returnlist
     else:
         return None
@@ -90,11 +92,13 @@ class Notice(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def notice_loop(self):
-        result = check_notice()
+        result = check_notice()   # [user: int, channel: int, embed: discord.Embed]
         if result:
             for i in result:
-                channel = self.bot.get_channel(i[1])
-                await channel.send(f"<@{i[0]}>", embed=i[2])
+                # channel = self.bot.get_channel(i[1])
+                # await channel.send(f"<@{i[0]}>", embed=i[2])
+                user = await self.bot.fetch_user(i[0])
+                await user.send(f"<@{i[0]}>", embed=i[2])
 
     @notice_loop.before_loop
     async def before_notice_loop(self):
@@ -181,6 +185,42 @@ class Notice(commands.Cog):
         )
         embed.add_field(name=text("cmd.notice_at.trigger_time"), value=f"{year.value}/{month.value}/{day} {pre_zero(hour)}:{pre_zero(minute)}")
         await interaction.response.send_message(embed=embed)
+
+   
+
+    week = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+    @app_commands.command(name="notice_routine", description=text("notice.routine.description"))
+    @app_commands.describe(event=text("notice.routine.event"), location=text("notice.routine.location"), weekday=text("notice.routine.weekday"), hour=text("cmd.notice_at.hour"), minute=text("cmd.notice_at.minute"))
+    @app_commands.choices(
+        weekday=[Choice(name=text(f"notice.{w}"), value=idx+1) for idx, w in enumerate(week)]
+    )
+    async def notice_routine(self, interaction: discord.Interaction, event: str, location: str, weekday: Choice[int], hour: Range[int, 0, 24], minute: Range[int, 0, 60]):
+        for ev in events:
+            if ev["event"] == event:
+                await interaction.response.send_message(text("cmd.notice_at.exist"))
+                return
+        tar = {
+            "note": 2,
+            "location": location,
+            "weekday": weekday.value,
+            "hour": hour,
+            "minute": minute,
+            "event": event,
+            "channel": interaction.channel_id,
+            "user": interaction.user.id
+        }
+        events.append(tar)
+        sync_json()
+        embed = discord.Embed(
+            title=text("notice.routine.set"),
+            description=f"## {event}\n",
+            color=settings.Colors.notice
+        )
+        embed.add_field(name=text("notice.routine.trigger_time"), value=f"routine.{self.week[weekday.value-1]} {pre_zero(hour)}:{pre_zero(minute)}")
+        await interaction.response.send_message(embed=embed)
+
+
+
 
     @app_commands.command(name="notice_delete", description=text("cmd.notice_delete.description"))
     async def notice_delete(self, interaction: discord.Interaction):

@@ -395,5 +395,19 @@
     "timetable.next.time": "時間：{}",
     "timetable.location": "地點：{}",
     "timetable.instructor": "指導者：{}",
-    "timetable.nonext": "今日已無課程"
+    "timetable.nonext": "今日已無課程",
+
+    "notice.routine.description": "建立規律通知",
+    "notice.routine.event": "提醒名稱",
+    "notice.routine.location": "地點 (自由填寫)",
+    "notice.routine.weekday": "星期幾",
+    "notice.monday": "星期一",
+    "notice.tuesday": "星期二",
+    "notice.wednesday": "星期三",
+    "notice.thursday": "星期四",
+    "notice.friday": "星期五",
+    "notice.saturday": "星期六",
+    "notice.sunday": "星期日",
+    "notice.routine.set": "已建立循環提醒",
+    "notice.routine.trigger_time": "將會在每週的這個時間發送提醒"
 }
