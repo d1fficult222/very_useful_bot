@@ -47,7 +47,7 @@ def check_notice():
         )
         channel = i["channel"]
         user = i["user"]
-        events.remove(i)
+        if i["note"] == 0: events.remove(i)
         sync_json()
         returnlist.append([user, channel, embed])
         return returnlist

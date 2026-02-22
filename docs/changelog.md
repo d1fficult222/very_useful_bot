@@ -1,9 +1,12 @@
 # ChangeLog
 
 ### v1.9 課表/時間表/行事曆
-- [Beta] 1.9.2 (December 2025)
-    - 將會完成行事曆的大多功能，並淘汰 `timetable.py` 的內容
-- [Latest] [1.9.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.1) (2025.11.27)
+- [Latest] [1.9.2.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.2.1) (2025.2.22)
+    - 修復：解決 routine 會自動刪除的 bug
+- [1.9.2](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.1) (2025.2.22)
+    - 新增：指令 `/notice_routine`
+    - 修改：提醒系統 `notice.py` 的所有提醒會以私人訊息 (DM) 發送
+- [1.9.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.1) (2025.11.27)
     - 新增：`about` 指令，可以查看版本
     - 新增：可以自訂時間表顏色
     - 更改：將之前的 Changelog 錯誤或缺少的資訊修正及補充完整
