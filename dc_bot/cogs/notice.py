@@ -2,22 +2,38 @@ import discord
 from discord.ext import commands, tasks
 from discord import app_commands
 from discord.app_commands import Choice, Range
+from typing import Optional
 import datetime, json, asyncio
 import settings
 from lang import *
 
-# --- All the notice events are stored here ---
+
+
 with open("assets/notice.json", "r") as f:
+    """
+    All the notice events are stored here
+    """
     events = json.load(f)
 
 def sync_json():
+    """
+    Syncs event list with assets/notice.json file
+    """
     with open("assets/notice.json", "w") as f:
         f.write(json.dumps(events, indent=4))
 
 def pre_zero(tofix: int) -> str:
+    """
+    Prefix zero
+    Useful for mm:ss formats
+    Example: 9 (int) -> '09' (str)
+    """
     return f"{tofix:02d}"
 
 def check_notice():
+    """
+    Handles embed message
+    """
     now = datetime.datetime.now()
     year = now.year
     month = now.month
@@ -45,6 +61,8 @@ def check_notice():
             color=settings.Colors.notice,
             timestamp=datetime.datetime.now()
         )
+        if i["note"] == 2:
+            if i['location']: embed.add_field(name=text("notice.location"), value=i['location'])
         channel = i["channel"]
         user = i["user"]
         if i["note"] == 0: events.remove(i)
@@ -55,10 +73,34 @@ def check_notice():
         return None
 
 class DropDown(discord.ui.Select):
+    """
+    Dropdown menu for 'notice delete'
+    """
     def __init__(self, user_id):
-        selects = [
-            discord.SelectOption(label=i["event"], description=f"{i['year']}/{i['month']}/{i['day']} {pre_zero(i['hour'])}:{pre_zero(i['minute'])}", value=i['event']) for i in events if i["user"] == user_id
-        ]
+        selects = []
+        for i in events:
+            if i['user'] != user_id: continue
+            if i['note'] == 0:
+                # notice_at, notice_after  
+                selects.append(discord.SelectOption(
+                    label=f"{text('notice.type0')}: {i['event']}",
+                    description=f"{i['year']}/{i['month']}/{i['day']} {pre_zero(i['hour'])}:{pre_zero(i['minute'])}",
+                    value=i['event'])
+                    )
+            elif i['note'] == 1:
+                # note
+                selects.append(discord.SelectOption(
+                    label=f"{text('notice.type1')}: {i['event']}",
+                    description=f"{i['year']}/{i['month']}/{i['day']} {pre_zero(i['hour'])}:{pre_zero(i['minute'])}",
+                    value=i['event'])
+                    )
+            else:
+                # routine
+                selects.append(discord.SelectOption(
+                    label=f"{text('notice.type2')}: {i['event']}",
+                    description=f"{text('notice.'+str(Notice.week[i['weekday']]))} {pre_zero(i['hour'])}:{pre_zero(i['minute'])}",
+                    value=i['event'])
+                    )
         selects.append(discord.SelectOption(label=text("cmd.notice_delete.cancel"), description=text("cmd.notice_delete.cancel_des"), value="CANCEL"))
         super().__init__(placeholder=text("cmd.notice_delete.placeholder"), min_values=1, max_values=1, options=selects)
 
@@ -78,9 +120,14 @@ class DropDown(discord.ui.Select):
         await interaction.edit_original_response(content=text("cmd.notice_delete.error"), view=None)
 
 class DropDownView(discord.ui.View):
+    """
+    Dropdown menu view for 'notice delete'
+    """
     def __init__(self, user_id):
         super().__init__()
         self.add_item(DropDown(user_id=user_id))
+
+
 
 class Notice(commands.Cog):
     def __init__(self, bot):
@@ -95,8 +142,6 @@ class Notice(commands.Cog):
         result = check_notice()   # [user: int, channel: int, embed: discord.Embed]
         if result:
             for i in result:
-                # channel = self.bot.get_channel(i[1])
-                # await channel.send(f"<@{i[0]}>", embed=i[2])
                 user = await self.bot.fetch_user(i[0])
                 await user.send(f"<@{i[0]}>", embed=i[2])
 
@@ -106,6 +151,8 @@ class Notice(commands.Cog):
         now = datetime.datetime.now()
         seconds_to_wait = 60 - now.second
         await asyncio.sleep(seconds_to_wait)
+
+
 
     @app_commands.command(name="notice_after", description=text("cmd.notice_after.description"))
     @app_commands.describe(event=text("cmd.notice_after.event"), time=text("cmd.notice_after.time"), unit=text("cmd.notice_after.unit"))
@@ -153,6 +200,8 @@ class Notice(commands.Cog):
         embed.add_field(name=text("cmd.notice_after.trigger_time"), value=f"{target.year}/{target.month}/{target.day} {pre_zero(target.hour)}:{pre_zero(target.minute)}")
         await interaction.response.send_message(embed=embed)
 
+
+
     @app_commands.command(name="notice_at", description=text("cmd.notice_at.description"))
     @app_commands.describe(event=text("cmd.notice_at.event"), year=text("cmd.notice_at.year"), month=text("cmd.notice_at.month"), day=text("cmd.notice_at.day"), hour=text("cmd.notice_at.hour"), minute=text("cmd.notice_at.minute"))
     @app_commands.choices(
@@ -190,18 +239,18 @@ class Notice(commands.Cog):
 
     week = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
     @app_commands.command(name="notice_routine", description=text("notice.routine.description"))
-    @app_commands.describe(event=text("notice.routine.event"), location=text("notice.routine.location"), weekday=text("notice.routine.weekday"), hour=text("cmd.notice_at.hour"), minute=text("cmd.notice_at.minute"))
+    @app_commands.describe(event=text("notice.routine.event"), location=text("notice.routine.location"), weekday=text("notice.routine.weekday"), hour=text("notice.hour"), minute=text("notice.minute"))
     @app_commands.choices(
         weekday=[Choice(name=text(f"notice.{w}"), value=idx+1) for idx, w in enumerate(week)]
     )
-    async def notice_routine(self, interaction: discord.Interaction, event: str, location: str, weekday: Choice[int], hour: Range[int, 0, 24], minute: Range[int, 0, 60]):
+    async def notice_routine(self, interaction: discord.Interaction, event: str, location: Optional[str], weekday: Choice[int], hour: Range[int, 0, 24], minute: Range[int, 0, 60]):
         for ev in events:
             if ev["event"] == event:
                 await interaction.response.send_message(text("cmd.notice_at.exist"))
                 return
         tar = {
             "note": 2,
-            "location": location,
+            "location": location if location else '',
             "weekday": weekday.value,
             "hour": hour,
             "minute": minute,
@@ -216,15 +265,16 @@ class Notice(commands.Cog):
             description=f"## {event}\n",
             color=settings.Colors.notice
         )
-        embed.add_field(name=text("notice.routine.trigger_time"), value=f"routine.{self.week[weekday.value-1]} {pre_zero(hour)}:{pre_zero(minute)}")
+        embed.add_field(name=text("notice.routine.trigger_time"), value=f"{text('notice.'+str(self.week[weekday.value-1]))} {pre_zero(hour)}:{pre_zero(minute)}")
         await interaction.response.send_message(embed=embed)
-
 
 
 
     @app_commands.command(name="notice_delete", description=text("cmd.notice_delete.description"))
     async def notice_delete(self, interaction: discord.Interaction):
         await interaction.response.send_message(text("cmd.notice_delete.select"), view=DropDownView(interaction.user.id), delete_after=15, ephemeral=True)
+
+
 
     @app_commands.command(name="sticky_note", description=text("cmd.sticky_note.description"))
     @app_commands.describe(title=text("cmd.sticky_note.title"), content=text("cmd.sticky_note.content"))
@@ -255,6 +305,8 @@ class Notice(commands.Cog):
             color=settings.Colors.notice
         )
         await interaction.response.send_message(embed=embed)
+
+
 
     @app_commands.command(name="note_list", description=text("cmd.notice_list.description"))
     async def note_list(self, interaction: discord.Interaction):
@@ -287,6 +339,8 @@ class Notice(commands.Cog):
             await interaction.response.send_message(content=text("cmd.notice_list.notice_below"), embed=notice)
         else:
             await interaction.response.send_message(content=text("cmd.notice_list.none"))
+
+
 
 async def setup(bot):
     await bot.add_cog(Notice(bot))

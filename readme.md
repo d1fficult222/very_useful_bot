@@ -1,17 +1,19 @@
 # very_useful_bot
-[v1.9.2.1](docs/changelog.md)  
-2026-02-22
+下載最新版本 (不包含說明文件)：
+[v1.9.2.2](https://github.com/d1fficult222/very_useful_bot/releases/latest) (2026/02/23 更新)  
+[檢視更新紀錄](docs/changelog.md)  
 
-VeryUsefulBot是一個非常有用的Discord機器人，以下是主打的功能：
+
+VeryUsefulBot 是一個非常有用的Discord機器人，提供以下功能：
 
 - ### 事件提醒
     建立提醒事項，不再忘記明天該做什麼
 
 - ### Wordle
-    在Discord上就能玩的Wordle小遊戲，比起Discord上NyTimes的，這個一天可以玩無數次 
+    在 Discord 上就能玩的 Wordle 小遊戲，一天可以玩無數次 
 
 - ### C++ Online Judge (線上解題系統)
-    一個在Discord上的OJ系統，目前只支援C和C++
+    一個在 Discord 上的 OJ 系統，目前只支援 C 和 C++
 
 - ### 數學計算
     解決一些簡單數學，例如約分分數、行列式、向量的內外積等。
@@ -47,6 +49,8 @@ python3 main.py
 
 
 ## 所有指令說明 
+> [!] 以下說明文件可能已經過時  
+
 VeryUsefulBot 目前使用 app_commands 的斜線指令 (Slash Command)，之後將改用 hybrid_command，以增加前綴指令的支援。
 
 ### 遊戲

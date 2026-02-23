@@ -1,9 +1,13 @@
 # ChangeLog
 
 ### v1.9 課表/時間表/行事曆
-- [Latest] [1.9.2.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.2.1) (2025.2.22)
+- [Latest] [1.9.2.2](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.2.2) (2026.2.23)
+    - 新增：routine 的 en_us 語言以及部分缺少的 zh_tw 語言
+    - 修改：routine 的 location 改為選填
+    - 修復：解決建立了 routine 後無法刪除的 bug
+- [1.9.2.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.2.1) (2026.2.22)
     - 修復：解決 routine 會自動刪除的 bug
-- [1.9.2](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.1) (2025.2.22)
+- [1.9.2](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.1) (2026.2.22)
     - 新增：指令 `/notice_routine`
     - 修改：提醒系統 `notice.py` 的所有提醒會以私人訊息 (DM) 發送
 - [1.9.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.1) (2025.11.27)
