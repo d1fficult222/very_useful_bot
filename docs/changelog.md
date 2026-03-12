@@ -1,6 +1,11 @@
 # ChangeLog
 
-### v1.9 課表/時間表/行事曆
+### v1.10 行事曆
+- [1.10]() (2026.3)
+    - 修改：將 dc_bot 的所有內容移出到上一層資料夾，不再需要進入 `dc_bot` 資料夾運行
+    - 移除：移除上個版本新增的課表系統，以這個版本的行事曆取代。
+
+### v1.9 課表
 - [Latest] [1.9.2.2](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.2.2) (2026.2.23)
     - 新增：routine 的 en_us 語言以及部分缺少的 zh_tw 語言
     - 修改：routine 的 location 改為選填
@@ -12,13 +17,13 @@
     - 修改：提醒系統 `notice.py` 的所有提醒會以私人訊息 (DM) 發送
 - [1.9.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.1) (2025.11.27)
     - 新增：`about` 指令，可以查看版本
-    - 新增：可以自訂時間表顏色
+    - 新增：可以自訂課表顏色
     - 更改：將之前的 Changelog 錯誤或缺少的資訊修正及補充完整
     - 更改：對調 instructor 與 location 的順序
     - 修復：將課表缺少的 UI 文字補上
 - [1.9.0](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.0) (2025.10.31)
     - 新增：加入了課表系統 (`timetable.py`)
-      1. 至[網頁工具](https://d1fficult222.github.io/vub_timetable_tools/)產生 json 檔
+      1. 至[課表系統工具](https://d1fficult222.github.io/vub_timetable_tools/)產生 json 檔
       2. 使用 `/settable` 指令匯入
       3. 使用 `/nextlass` 與 `/timetable` 指令顯示
 
