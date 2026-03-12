@@ -11,28 +11,28 @@ VeryUsefulBot 有以下功能：
 > 說明檔案已過時，之後將更新
 
 - ### 行事曆與事件提醒
-    建立提醒事項，不再忘記明天該做什麼
-    [行事曆說明]() (之後補上)
-    [事件提醒說明 (即將移除)](docs/notice.md)
-    [課表系統說明 (即將移除)](vub_timetable_tools/README.md)
+    建立提醒事項，不再忘記明天該做什麼  
+    [行事曆說明]() (之後補上)  
+    [事件提醒說明 (即將移除)](docs/notice.md)  
+    [課表系統說明 (即將移除)](https://github.com/d1fficult222/very_useful_bot/tree/6b83e28a6303a9feb380153d5fb47e33d5bcc462/vub_timetable_tools)  
 
 - ### Wordle
-    在 Discord 上就能玩的 Wordle 小遊戲，一天可以玩無數次 
-    [Wordle 遊戲說明](docs/wordle.md) 
+    在 Discord 上就能玩的 Wordle 小遊戲，一天可以玩無數次  
+    [Wordle 遊戲說明](docs/wordle.md)   
 
 - ### C++ Online Judge (線上解題系統)
-    一個在 Discord 上的 OJ 系統，目前只支援 C 和 C++
-    [OJ 說明](docs/vuboj.md)
-    [建立 OJ 題目](docs/oj_create.md)
+    一個在 Discord 上的 OJ 系統，目前只支援 C 和 C++  
+    [OJ 說明](docs/vuboj.md)  
+    [建立 OJ 題目](docs/oj_create.md)  
 
 - ### 數學計算
-    解決一些簡單數學，例如約分分數、行列式、向量的內外積等。
-    > 本功能即將移除。
-    [數學計算說明 (即將移除)](docs/math.md)
+    解決一些簡單數學，例如約分分數、行列式、向量的內外積等。  
+    > 本功能即將移除。  
+    [數學計算說明 (即將移除)](docs/math.md)  
 
 - ### 單字卡
-    複習單字的小工具。
-    [單字卡說明]() (之後補上)
+    複習單字的小工具。  
+    [單字卡說明]() (之後補上)  
 
 
 

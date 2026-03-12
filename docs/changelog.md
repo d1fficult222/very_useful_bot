@@ -23,7 +23,7 @@
     - 修復：將課表缺少的 UI 文字補上
 - [1.9.0](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.0) (2025.10.31)
     - 新增：加入了課表系統 (`timetable.py`)
-      1. 至[課表系統工具](https://d1fficult222.github.io/vub_timetable_tools/)產生 json 檔
+      1. 至[課表系統工具](https://github.com/d1fficult222/very_useful_bot/tree/6b83e28a6303a9feb380153d5fb47e33d5bcc462/vub_timetable_tools)產生 json 檔
       2. 使用 `/settable` 指令匯入
       3. 使用 `/nextlass` 與 `/timetable` 指令顯示
 
