@@ -2,3 +2,4 @@ __pycache/
 .env
 assets/
 cogs/__pycache/
+venv/
