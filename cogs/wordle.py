@@ -234,7 +234,7 @@ class Wordle(commands.Cog):
         else:
             # result = 1: win
             # result = 2: lose
-            embed.description = text("wordle.you_lose") if result-1 else text("wordle.you_win")
+            embed.description = text("wordle.you_lose", game.answer) if result-1 else text("wordle.you_win")
             embed.color = settings.Colors.fail if result-1 else settings.Colors.success
             
             # update stats
