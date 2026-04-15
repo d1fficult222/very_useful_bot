@@ -190,18 +190,13 @@
     "wordle.games_won": "獲勝次數",
     "wordle.win_rate": "獲勝率",
     "wordle.streak": "連勝次數",
+    "wordle.welcome": "歡迎遊玩 Wordle",
+    "wordle.welcome2": "請輸入 {} 個字母的單字",
+    "wordle.gametitle": "Wordle - {}",
 
     "cmd.wordle.description": "[Worlde] 猜測Wordle單字",
     "cmd.wordle.guess": "你的猜測",
 
-    "menu.wordle": "使用此單字猜測 Wordle",
-
-    "menu.wordcount": "字數統計",
-    "menu.wordcount.title": "字數統計",
-    "menu.wordcount.words": "字數",
-    "menu.wordcount.chars": "字元數",
-    "menu.wordcount.chars_no_space": "字元數 (不含空格)",
-    "menu.wordcount,err": "統計字數時發生錯誤: {}",
 
     "expenses.categories.main_income": "主要",
     "expenses.categories.side_job": "副業",
@@ -424,5 +419,18 @@
     "notice.after.set": "已建立提醒",
     "notice.after.trigger_time": "發送提醒時間",
     "notice.routine.set": "已建立循環提醒",
-    "notice.routine.trigger_time": "將會在每週的這個時間發送提醒"
+    "notice.routine.trigger_time": "將會在每週的這個時間發送提醒",
+
+    "calendar.command.event.description": "新增一個行事曆活動或提醒",
+    "calendar.select.placeholder": "請選擇活動類型...",
+    "calendar.event.title": "一般活動",
+    "calendar.event.description": "建立一個行事曆活動",
+    "calendar.new_event.title": "建立一般活動",
+    "calendar.routine.title": " 循環活動",
+    "calendar.routine.description": "建立一個每週都會提醒的活動",
+    "calendar.new_routine.title": " 建立循環活動",
+    "calendar.reminder.title": "臨時提醒",
+    "calendar.reminder.description": "建立一個臨時提醒事項，觸發後自動刪除",
+    "calendar.new_reminder.title": "建立臨時提醒"
+
 }

@@ -62,13 +62,56 @@ async def on_ready():
     
 
 
-# Easter eggs
 @bot.event
 async def on_message(message):
     if message.author == bot.user:
         return
+    # Hello world
     if message.content == "hello world":
         await message.channel.send(text("bot.helloworld"))
+    # Save DM messages and DM to admin
+    if isinstance(message.channel, discord.DMChannel):
+        view = DMConfirmView(message)
+        sent_message = await message.channel.send("您想將此訊息傳送給 VeryUsefulBot 維護人員嗎?", view=view)
+        view.message = sent_message
+    await bot.process_commands(message)
+
+
+
+class DMConfirmView(discord.ui.View):
+    def __init__(self, message):
+        super().__init__(timeout=60)
+        self.original_message = message
+        self.message = None
+
+    @discord.ui.button(label="是", style=discord.ButtonStyle.green)
+    async def yes(self, interaction: discord.Interaction, button: discord.ui.Button):
+        admin_id = 1011979714283454586
+        admin = bot.get_user(admin_id)
+        if admin:
+            await admin.send(f"來自 {self.original_message.author} 的訊息: {self.original_message.content}")
+            await interaction.response.send_message("訊息已傳送給維護人員", ephemeral=True)
+        else:
+            await interaction.response.send_message("發生錯誤：無法找到維護人員，請聯絡維護人員。", ephemeral=True)
+        # 刪除按鈕
+        await self.message.edit(view=None)
+
+    @discord.ui.button(label="否", style=discord.ButtonStyle.red)
+    async def no(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_message("未傳送訊息", ephemeral=True)
+        # Disable 按鈕
+        self.yes.disabled = True
+        self.no.disabled = True
+        await self.message.edit(view=self)
+
+    async def on_timeout(self):
+        # Disable 按鈕
+        self.yes.disabled = True
+        self.no.disabled = True
+        try:
+            await self.message.edit(view=self)
+        except:
+            pass
 
 
 
@@ -127,6 +170,26 @@ async def unload(ctx: commands.Context, extension: str):
 @bot.hybrid_command(name="reload", description=text("cmd.reload.description"))
 async def reload(ctx: commands.Context, extension: str):
     await ctx.interaction.response.send_modal(EnterPswView(do="reload", extension=extension))
+
+@bot.hybrid_command(name="senddm", description="將指定內容私訊給指定使用者（需提供密碼）")
+async def senddm(ctx: commands.Context, message: str, user_id: int, password: str):
+    """私訊指定 user_id（數字），需提供正確密碼才能發送。"""
+
+    expected = os.getenv("PASSWORD")
+    if expected is None:
+        await ctx.interaction.response.send_message("伺服器尚未設定 PASSWORD，無法進行驗證。", ephemeral=True)
+        return
+
+    if password != expected:
+        await ctx.interaction.response.send_message("密碼錯誤，無法發送私訊。", ephemeral=True)
+        return
+
+    try:
+        user = await bot.fetch_user(user_id)
+        await user.send(message)
+        await ctx.interaction.response.send_message(f"已傳送訊息給 <@{user_id}>。", ephemeral=True)
+    except Exception as e:
+        await ctx.interaction.response.send_message(f"無法傳送私訊：{e}", ephemeral=True)
 
 @bot.hybrid_command(name="about", description=text("bot.about"))
 async def about(ctx: commands.Context):
