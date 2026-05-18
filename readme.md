@@ -2,11 +2,8 @@
 
 VeryUsefulBot 是一個非常有用的 Discord 機器人，可以管理行事曆、建立提醒、遊玩小遊戲、還有一個 C++ Online Judge 系統！
 
-Latest Release: [v1.10](https://github.com/d1fficult222/very_useful_bot/releases/latest) (Updated 2026/4)  
+下載: [v1.10](https://github.com/d1fficult222/very_useful_bot/releases/latest) (2026/5 更新)  
 [Changelog](docs/changelog.md)  
-
-v1.10 移除了一些多餘/使用體驗不佳的功能、新增了行事曆、並提升穩定性
-
 
 
 - ### 行事曆與事件提醒
@@ -28,13 +25,10 @@ v1.10 移除了一些多餘/使用體驗不佳的功能、新增了行事曆、�
 
 
 ## 安裝說明
-> 運行環境：Linux, macOS, Windows等   
-> **需可執行bash，且可執行 `gcc` 和 `g++`，才可以使用OJ系統**  
-
-以可執行bash的系統為例：
 ```bash
 # 下載 VeryUsefulBot
 git clone https://github.com/dfficult/very_useful_bot
+cd very_useful_bot
 
 # 建立 venv
 python3 -m venv .venv
@@ -43,8 +37,10 @@ source .venv/bin/activate
 # 安裝額外的 module
 pip install -r requirements.txt
 
+# 安裝繁體中文字型，用於 `Quotify` (Optional)
+sudo apt install fonts-noto-cjk
+
 # 輸入 Token (Required)，以及建立管理員密碼 (Optional)
-cd very_useful_bot
 echo "TOKEN = <MyToken>" >> .env
 echo "PASSWORD = <MyPassword>" >> .env
 

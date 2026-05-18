@@ -1,7 +1,13 @@
 {
     "wordle": {
-        "times_played": 0,
+        "times_played": 1,
         "players": {
+            "1": {
+                "played": 1,
+                "win": 1,
+                "lose": 0,
+                "streak": 0
+            }
         }
     }
 }

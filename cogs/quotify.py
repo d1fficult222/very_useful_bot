@@ -1,3 +1,4 @@
+import os
 import discord
 from discord import app_commands
 from discord.ext import commands
@@ -42,18 +43,6 @@ async def quotify(interaction: discord.Interaction, message: discord.Message):
     avatar = avatar.resize((AVATAR_SIZE, AVATAR_SIZE))
     background.paste(avatar, (PADDING, (HEIGHT-AVATAR_SIZE)//2), avatar)
     
-    # Font
-    try:
-        font1 = ImageFont.truetype(r"/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc", FONT_SIZE)
-        font2 = ImageFont.truetype(r"/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc", FONT_SIZE//2)
-    except:
-        try:
-            font1 = ImageFont.truetype("arial.ttf", FONT_SIZE)
-            font2 = ImageFont.truetype("arial.ttf", FONT_SIZE//2)
-        except:
-            font1 = ImageFont.load_default()
-            font2 = ImageFont.load_default()
-    
     # Word wrap
     def wrap(text, font, max_width):
         lines = []
@@ -85,17 +74,50 @@ async def quotify(interaction: discord.Interaction, message: discord.Message):
         await interaction.response.send_message(text("menu.quotify.no_content"))
         return
 
+    # Font path check: prefer CJK fonts for 中文支援
+    font_paths = [
+        "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
+        "/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc",
+        "/usr/share/fonts/truetype/noto/NotoSansCJK.ttc",
+        "/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc",
+        "/usr/share/fonts/truetype/arphic/uming.ttf",
+        "/usr/share/fonts/truetype/arphic/ukai.ttf",
+    ]
+    font_path = next((p for p in font_paths if os.path.exists(p)), None)
+    if not font_path:
+        if re.search(r'[\u4e00-\u9fff]', quote_text):
+            await interaction.response.send_message(
+                "Quotify 需要安裝支援繁體中文的字型，例如 Noto Sans CJK TC。請安裝 `fonts-noto-cjk` 或 `fonts-wqy-zenhei` 後再試一次。",
+                ephemeral=True,
+            )
+            return
+        font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+
+    try:
+        font1 = ImageFont.truetype(font_path, FONT_SIZE)
+        font2 = ImageFont.truetype(font_path, FONT_SIZE // 2)
+    except OSError:
+        await interaction.response.send_message(
+            "載入字型失敗，請確認系統上已安裝 Noto Sans CJK TC 或其他 CJK 字型。",
+            ephemeral=True,
+        )
+        return
+
     text1_max_w = WIDTH - AVATAR_SIZE - PADDING * 3
     wrapped = wrap(f'"{quote_text}"', font1, text1_max_w)
     text_content = "\n".join(wrapped)
     draw1 = ImageDraw.Draw(background)
-    text1_w, text1_h = draw1.textsize(text_content, font=font1)
+    bbox1 = draw1.multiline_textbbox((0, 0), text_content, font=font1, spacing=4)
+    text1_w = bbox1[2] - bbox1[0]
+    text1_h = bbox1[3] - bbox1[1]
     draw1.multiline_text((AVATAR_SIZE+PADDING*2, (HEIGHT-text1_h)//2), text_content, font=font1, fill="white", spacing=4)
 
     # Author
     text_author = f"-- {user.display_name}"
     draw2 = ImageDraw.Draw(background)
-    text2_w, text2_h = draw2.textsize(text_author, font=font2)
+    bbox2 = draw2.textbbox((0, 0), text_author, font=font2)
+    text2_w = bbox2[2] - bbox2[0]
+    text2_h = bbox2[3] - bbox2[1]
     draw2.text((WIDTH-text2_w-PADDING, HEIGHT-text2_h-PADDING), text_author, font=font2, fill="white")
 
     # Save
