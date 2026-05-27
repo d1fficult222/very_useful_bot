@@ -21,8 +21,11 @@ for key, value in ALLOWED_LIST_PATHS.items():
         allowed_list[key] = [i.strip().upper() for i in f.readlines()]
 
 STATS_PATH = "assets/stats.json"
-FONTS_PATH = [r"/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", "arial.ttf"]
-
+FONTS_PATH = [
+    r"/usr/share/fonts/truetype/noto/NotoSansCJK-Bold.ttc",
+    r"/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc",
+    "arial.ttf"
+]
 
 
 class WordleGame:
@@ -172,8 +175,10 @@ class WordleGame:
         for i in FONTS_PATH:
             try:
                 FONT = ImageFont.truetype(i, round(BLOCK_SIZE * 3 / 5))
+                print(f"Font loaded: {i}")
                 break
-            except:
+            except Exception as e:
+                print(f"Error happened while loading {i},\n{e}\n")
                 continue
         if not FONT:
             FONT = ImageFont.load_default()
@@ -198,8 +203,8 @@ class WordleGame:
                     bbox = FONT.getbbox(block_text)
                     txt_width = bbox[2] - bbox[0]
                     txt_height = bbox[3] - bbox[1]
-                    txt_x = x1 + (BLOCK_SIZE - txt_width) // 2
-                    txt_y = y1 + (BLOCK_SIZE - txt_height) // 2
+                    txt_x = x1 + (BLOCK_SIZE - txt_width) // 2 - bbox[0]
+                    txt_y = y1 + (BLOCK_SIZE - txt_height) // 2 - bbox[1]
                     draw.text((txt_x, txt_y), block_text, fill=WHITE, font=FONT)
                 except:
                     draw.rectangle([x1, y1, x2, y2], fill=BLACK)
@@ -295,6 +300,9 @@ class Wordle(commands.Cog):
     @commands.hybrid_command(name="wordle", description=text("wordle.cmd.description"))
     async def wordle(self, ctx: commands.Context, guess: str):
         
+        if ctx.interaction:
+            await ctx.interaction.response.defer()
+
         def start_new_game() -> WordleGame:
             """
             建立新遊戲 (length 5)

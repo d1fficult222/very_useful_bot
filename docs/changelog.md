@@ -1,58 +1,63 @@
 # ChangeLog
 
-### v1.10 行事曆
-- [1.10]() (2026.4)
-    - 修改：將 dc_bot 的所有內容移出到上一層資料夾，不再需要進入 `dc_bot` 資料夾運行
-    - 修改：重寫 Wordle 程式碼，提升穩定性
-    - 修改：Wordle 使用玩家 ID 儲存遊戲資料
+### v1.10
+
+- [1.10.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.10.1) (2026-05-27)
+    - 新增：dockerfile
+    - 修復：wordle 加入 interaction.response.defer，修正問題
+    - 移除：已移除的說明文件
+- [1.10](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.10) (2026-05-18)
+    - 更改：將 dc_bot 的所有內容移出到上一層資料夾，不再需要進入 `dc_bot` 資料夾運行
+    - 更改：重寫 Wordle 程式碼，提升穩定性
+    - 更改：Wordle 使用玩家 ID 儲存遊戲資料
     - 新增：Wordle超過一天的遊戲是否繼續的詢問視窗以及Wordle embed 加入玩家名稱、遊玩局次、遊戲 uuid、時間戳記、互動按鈕
     - 移除：移除上個版本新增的課表系統
     - 移除：數學、Slot machine、記帳、課表、剩餘日期、自數統計、使用者選項、Wordle右鍵選單
     - 修復：修復了 Quotify 無法繪製圖片的問題
 
-### v1.9 課表
-- [Latest] [1.9.2.2](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.2.2) (2026.2.23)
+### v1.9
+- [1.9.2.2](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.2.2) (2026-02-23)
     - 新增：routine 的 en_us 語言以及部分缺少的 zh_tw 語言
-    - 修改：routine 的 location 改為選填
+    - 更改：routine 的 location 改為選填
     - 修復：解決建立了 routine 後無法刪除的 bug
-- [1.9.2.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.2.1) (2026.2.22)
+- [1.9.2.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.2.1) (2026-02-22)
     - 修復：解決 routine 會自動刪除的 bug
-- [1.9.2](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.1) (2026.2.22)
+- [1.9.2](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.1) (2026-02-22)
     - 新增：指令 `/notice_routine`
-    - 修改：提醒系統 `notice.py` 的所有提醒會以私人訊息 (DM) 發送
-- [1.9.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.1) (2025.11.27)
+    - 更改：提醒系統 `notice.py` 的所有提醒會以私人訊息 (DM) 發送
+- [1.9.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.1) (2025-11-27)
     - 新增：`about` 指令，可以查看版本
     - 新增：可以自訂課表顏色
     - 更改：將之前的 Changelog 錯誤或缺少的資訊修正及補充完整
     - 更改：對調 instructor 與 location 的順序
     - 修復：將課表缺少的 UI 文字補上
-- [1.9.0](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.0) (2025.10.31)
+- [1.9.0](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.9.0) (2025-10-31)
     - 新增：加入了課表系統 (`timetable.py`)
       1. 至[課表系統工具](https://github.com/d1fficult222/very_useful_bot/tree/6b83e28a6303a9feb380153d5fb47e33d5bcc462/vub_timetable_tools)產生 json 檔
       2. 使用 `/settable` 指令匯入
       3. 使用 `/nextlass` 與 `/timetable` 指令顯示
 
-### v1.8 引文圖片
-- [1.8.4](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.2) (2025.9.11)
+### v1.8
+- [1.8.4](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.2) (2025-09-11)
     - 更改：更新 `docs` 資料夾中大部分指令說明
     - 修復：加上對應的文字：`cmd.notice_at.hour`, `cmd.notice_at.minute`, `cmd.solve21.description`, `cmd.solve31.description`
     - 修復：現在會以 UTF-8 開啟語言檔案，可以正確讀取中文語言檔案
-- [1.8.3](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.2) (2025.8.7)
+- [1.8.3](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.2) (2025-08-07)
     - 更改：現在 `load`, `unload`, `reload` 指令需要管理員密碼
-- [1.8.2](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.2) (2025.7.17)
+- [1.8.2](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.2) (2025-07-17)
     - 新增：`load`, `unload`, `reload` 指令，方便管理Cog指令
     - 新增：`ping` 指令，可以查看延遲
     - 更改：把 `token.txt` 改成 `.env`，增加安全性
     - 更改：Quotify 的圖片名稱改為 `quotify.png`
-- [1.8.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.1) (2025.6.10)
+- [1.8.1](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.1) (2025-06-10)
     - 新增：開發 VeryUsefulBot 的教學 (部分)
-    - 更改：可以從 `settings.py` 修改 Bot Activity 的類型，不用到 `main.py` 修改
+    - 更改：可以從 `settings.py` 更改 Bot Activity 的類型，不用到 `main.py` 更改
     - 更改：將 cog 檔案的載入顯示訊息由**指令模組(command modules)**改為**程式套件(packages)**
     - 修復：指令現在會同步到客戶端，部分更名的指令可以使用
     - 修復：Quotify 的作者修正為訊息的作者，非使用指令的作者
     - 修復：Quotify 可以讀取 Embed 裡的內容
     - 修復：`menu.quotify` 加上對應的顯示文字 **Quotify**
-- [1.8.0](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.0) (2025.5.31)
+- [1.8.0](https://github.com/d1fficult222/very_useful_bot/releases/tag/v1.8.0) (2025-05-31)
     - 新增： `Quotify` ：將一段話做成引文圖片
     - 新增：英文語言檔案 
     - 新增：第一個 Release 版本
@@ -67,18 +72,18 @@
     - 移除： `my_address` 彩蛋 (1.7.1) (`hello world` 仍保留)
 
 
-### v1.7 新記帳系統與拉霸機
-- [1.7.2](https://github.com/d1fficult222/very_useful_bot/commit/690776a64e3a1626e403e800213d740e314c85c4) (2025.5.8)
+### v1.7
+- [1.7.2](https://github.com/d1fficult222/very_useful_bot/commit/690776a64e3a1626e403e800213d740e314c85c4) (2025-05-08)
     - 新增：Slot Machine
-- [1.7.1](https://github.com/d1fficult222/very_useful_bot/commit/00c1d9cba497b517cf1feb8ba8ef59868bf5f974) (2025.4.25)
+- [1.7.1](https://github.com/d1fficult222/very_useful_bot/commit/00c1d9cba497b517cf1feb8ba8ef59868bf5f974) (2025-04-25)
     - 新增：記帳系統可以查看紀錄 (最近20筆)
     - 新增：`my_address` 彩蛋 (回傳隨機 IP 地址)
     - 修復：Wordle 修復紀錄重置問題
-- [1.7.0.02](https://github.com/d1fficult222/very_useful_bot/commit/61ddf75cf6abfefde6802f8673843e8e07e79efa) (2025.4.14)
+- [1.7.0.02](https://github.com/d1fficult222/very_useful_bot/commit/61ddf75cf6abfefde6802f8673843e8e07e79efa) (2025-04-14)
     - 修復：指令 `common_deg_to_rad`的錯誤
-- [1.7.0.01](https://github.com/d1fficult222/very_useful_bot/commit/a60013b8a61c26aa785df2b15287c331e3bce235) (2025.4.5)
+- [1.7.0.01](https://github.com/d1fficult222/very_useful_bot/commit/a60013b8a61c26aa785df2b15287c331e3bce235) (2025-04-05)
     - 修復：Wordle的錯誤
-- [1.7.0](https://github.com/d1fficult222/very_useful_bot/commit/dcff8de13117bb927f6a0a1edba376a4f5115d81) (2025.4.5)
+- [1.7.0](https://github.com/d1fficult222/very_useful_bot/commit/dcff8de13117bb927f6a0a1edba376a4f5115d81) (2025-04-05)
     - 新增：新記帳系統
     - 新增：語言檔案
     - 新增：右鍵選單
@@ -89,50 +94,89 @@
     - 更改：重新命名 `note` -> `sticky_notes`
     - 修復：指令 `notice`不能輸入0分
     - 修復：指令 `det2`, `det3`, `invrmtx` 內容對齊
-### v1.6 Online Judge 和 提醒系統
-- [1.6.0](https://github.com/d1fficult222/very_useful_bot/commit/c3912645dc450a1694cf162abf68971de95962ff) Fixed oj compile error, removed new_code_q/today/mlend/mdelete/mhistory commands, redesigned code, added sticky notes, made embed colors environmental variables
-- [1.6 Beta 3](https://github.com/d1fficult222/very_useful_bot/commit/2e903e3d92a82bbf0bd582de5f3acf775ccaf59d) Updated notice system, Minor fixes to wordle.py and eat.py
-- [1.6 Beta 2.1](https://github.com/d1fficult222/very_useful_bot/commit/10ea36ca48434768c5f14187c06a35c87bdb936e) Updated `readme.md`
-- [1.6 Beta 2](https://github.com/d1fficult222/very_useful_bot/commit/00674c1d709546fe6cf40146b8e106ede515b8ff) Wordle: Added stats to wordle, Edit message by getting message instead of interaction.edit_original_response
-- [1.6 Beta 1.1](https://github.com/d1fficult222/very_useful_bot/commit/8847221d368e1cc555501f00d18972904e464c02) Removed `runcode.sh`
-- [1.6 Beta 1](https://github.com/d1fficult222/very_useful_bot/commit/0b451bfbc8d80d88682abdf2cc80a6255d0e7c29) Token is now a seperate file, Reorganized all the files (Put data in `assets` folder, renamed `codes.py` to `oj.py`)
+### v1.6
+- [1.6.0](https://github.com/d1fficult222/very_useful_bot/commit/c3912645dc450a1694cf162abf68971de95962ff) (2025-03-10)  
+    - 新增：sticky notes  
+    - 新增：embed colors 的 environmental variables  
+    - 移除：new_code_q/today/mlend/mdelete/mhistory commands  
+    - 更改：redesigned code
+    - 修復：oj compile error
+- [1.6 Beta 3](https://github.com/d1fficult222/very_useful_bot/commit/2e903e3d92a82bbf0bd582de5f3acf775ccaf59d) (2025-02-22)  
+    - 更改：Updated notice system
+    - 修復：wordle.py and eat.py
+- [1.6 Beta 2.1](https://github.com/d1fficult222/very_useful_bot/commit/10ea36ca48434768c5f14187c06a35c87bdb936e) (2025-02-07)  
+    - 更改：Updated `readme.md`
+- [1.6 Beta 2](https://github.com/d1fficult222/very_useful_bot/commit/00674c1d709546fe6cf40146b8e106ede515b8ff) (2025-02-07)  
+    - 更改：Wordle: Added stats to wordle, Edit message by getting message instead of interaction.edit_original_response
+- [1.6 Beta 1.1](https://github.com/d1fficult222/very_useful_bot/commit/8847221d368e1cc555501f00d18972904e464c02) (2025-02-06)  
+    - 移除：Removed `runcode.sh`
+- [1.6 Beta 1](https://github.com/d1fficult222/very_useful_bot/commit/0b451bfbc8d80d88682abdf2cc80a6255d0e7c29) (2025-02-06)  
+    - 更改：Token is now a seperate file, Reorganized all the files (Put data in `assets` folder, renamed `codes.py` to `oj.py`)
 
-### v1.5 FlashCard, Wordle, and Calculator
-- [1.5.3.01](https://github.com/d1fficult222/very_useful_bot/commit/ebe4429aee3f8b719e3b20cbeb88e701b7b62a43) Wordle: Fixed sometimes it does not show image properly
-- [1.5.3](https://github.com/d1fficult222/very_useful_bot/commit/21a99691a45973f0b107d16f751268cd2f1f1ce4) Wordle: Edit message instead of creating a new message on every guess, Debug Mode set to ephemeral, Changed some variable to constant, Deletes message after 2 seconds, Added allowed guesses list
-- [1.5.2.02](https://github.com/d1fficult222/very_useful_bot/commit/1d2e5f2fe09f9ac37c191c8a4fe95f5ec3d55d16) Fixed incorrect bottom color showing, made better debug mode, updated [readme.md](#very_useful_bot), added changelog
-- [1.5.2.01](https://github.com/d1fficult222/very_useful_bot/commit/251297706200472cac2c86b7f59cd9faca392d73) Fixed winnig at 6th attempt returned lose
-- [1.5.2](https://github.com/d1fficult222/very_useful_bot/commit/f637fd0beaff57ef169b897cebe626f3e623d7ba) Added Wordle
-- [1.5.1](https://github.com/d1fficult222/very_useful_bot/commit/2c266c7dbe273a4024ec436c6f4166b30ca15cd6) Added Calculator
-- [1.5.0.01](https://github.com/d1fficult222/very_useful_bot/commit/4c0967b52e9b8db868673ae6008c1ee8d64f0456) Updated readme.md (Forgot)
-- [1.5.0](https://github.com/d1fficult222/very_useful_bot/commit/3cefe82fe8de5bd4ddfbd8f399121f33c0fe90e0) Added Flashcard, started adding version properly
+### v1.5
+- [1.5.3.01](https://github.com/d1fficult222/very_useful_bot/commit/ebe4429aee3f8b719e3b20cbeb88e701b7b62a43) (2025-02-04)  
+    - 修復：Wordle: Fixed sometimes it does not show image properly
+- [1.5.3](https://github.com/d1fficult222/very_useful_bot/commit/21a99691a45973f0b107d16f751268cd2f1f1ce4) (2025-02-04)  
+    - 更改：Wordle: Edit message instead of creating a new message on every guess, Debug Mode set to ephemeral, Changed some variable to constant, Deletes message after 2 seconds, Added allowed guesses list
+- [1.5.2.02](https://github.com/d1fficult222/very_useful_bot/commit/1d2e5f2fe09f9ac37c191c8a4fe95f5ec3d55d16) (2025-02-02)  
+    - 修復：Fixed incorrect bottom color showing
+    - 更改：made better debug mode
+    - 更改：updated readme.md
+    - 新增：changelog
+- [1.5.2.01](https://github.com/d1fficult222/very_useful_bot/commit/251297706200472cac2c86b7f59cd9faca392d73) (2025-02-01)  
+    - 修復：winnig at 6th attempt returned lose
+- [1.5.2](https://github.com/d1fficult222/very_useful_bot/commit/f637fd0beaff57ef169b897cebe626f3e623d7ba) (2025-01-31)  
+    - 新增：Wordle
+- [1.5.1](https://github.com/d1fficult222/very_useful_bot/commit/2c266c7dbe273a4024ec436c6f4166b30ca15cd6) (2025-01-22)  
+    - 新增：Calculator
+- [1.5.0.01](https://github.com/d1fficult222/very_useful_bot/commit/4c0967b52e9b8db868673ae6008c1ee8d64f0456) (2025-01-02)  
+    - 更改：Updated readme.md
+- [1.5.0](https://github.com/d1fficult222/very_useful_bot/commit/3cefe82fe8de5bd4ddfbd8f399121f33c0fe90e0) (2025-01-02)  
+    - 新增：Flashcard
 
-### v1.4 OJ Update
-- [1.4.3](https://github.com/d1fficult222/very_useful_bot/commit/4afcf33c5d91dc77e4d2224b04974a1692899f78) Fixed '\n' and ' ' evaluation of the code output
-- [1.4.2](https://github.com/d1fficult222/very_useful_bot/commit/2c06455b2d24384ea21aa4472793c95199beed7d) Fixed file reading
-- [1.4.1.01](https://github.com/d1fficult222/very_useful_bot/commit/4d6215d7050412a53413f10570a5ef1cbfac91e3) Fixed oj_create.md
-- [1.4.1](https://github.com/d1fficult222/very_useful_bot/commit/25a511afea089d79ba3e2103b160afe8918a0a1e) Removed one difficulty as it causes confusion, fixed missing last_id
-- [1.4.0](https://github.com/d1fficult222/very_useful_bot/commit/bfc110815fe3ae92b06328262ed4fe301ce2aac9) Added difficulty, added new code adding support
+### v1.4
+- [1.4.3](https://github.com/d1fficult222/very_useful_bot/commit/4afcf33c5d91dc77e4d2224b04974a1692899f78) (2024-10-19)   
+    - 修復：Fixed '\n' and ' ' evaluation of the code output
+- [1.4.2](https://github.com/d1fficult222/very_useful_bot/commit/2c06455b2d24384ea21aa4472793c95199beed7d) (2024-10-06)   
+    - 修復：Fixed file reading
+- [1.4.1.01](https://github.com/d1fficult222/very_useful_bot/commit/4d6215d7050412a53413f10570a5ef1cbfac91e3) (2024-10-06)   
+    - 修復：Fixed oj_create.md
+- [1.4.1](https://github.com/d1fficult222/very_useful_bot/commit/25a511afea089d79ba3e2103b160afe8918a0a1e) (2024-10-06)   
+    - 移除：Removed one difficulty as it causes confusion
+    - 修復：fixed missing last_id
+- [1.4.0](https://github.com/d1fficult222/very_useful_bot/commit/bfc110815fe3ae92b06328262ed4fe301ce2aac9)(2024-10-05)   
+    - 新增：difficulty, added new code adding support
 
-### v1.3 Eat Command Update
-- [1.3.1](https://github.com/d1fficult222/very_useful_bot/commit/88184e013a0a7c9e560f802bbd3d05b9590b1ced) Correct File location
-- [1.3.02](https://github.com/d1fficult222/very_useful_bot/commit/d222ad4f90e52aa012505687a04ae7b51c0c1ed0) Removed wrong file
-- [1.3.01](https://github.com/d1fficult222/very_useful_bot/commit/ee4710d136803f2c6a9df2153f0519588816ae2f) Removed wrong file
-- [1.3.0](https://github.com/d1fficult222/very_useful_bot/commit/5289ac19a157eb6867fb0887963b92e6b86d6478) Fixed bot.change_presence not working, 
-updated /eat by adding amount so you don't have to type the command 30 times
+### v1.3
+- [1.3.1](https://github.com/d1fficult222/very_useful_bot/commit/88184e013a0a7c9e560f802bbd3d05b9590b1ced) (2024-09-21)  
+    - 更改：Correct File location
+- [1.3.02](https://github.com/d1fficult222/very_useful_bot/commit/d222ad4f90e52aa012505687a04ae7b51c0c1ed0) (2024-09-21)  
+    - 更改：Removed wrong file
+- [1.3.01](https://github.com/d1fficult222/very_useful_bot/commit/ee4710d136803f2c6a9df2153f0519588816ae2f) (2024-09-21)  
+    - 更改：Removed wrong file
+- [1.3.0](https://github.com/d1fficult222/very_useful_bot/commit/5289ac19a157eb6867fb0887963b92e6b86d6478) (2024-09-21)  
+    - 更改：updated /eat by adding amount so you don't have to type the command 30 times
+    - 修復：bot.change_presence not working, 
 
-### v1.2 OJ and Notice
-- [1.2](https://github.com/d1fficult222/very_useful_bot/commit/4608b547e9dd04fb66aa9e74a523c95d7570c00a) Added OJ and Notice, removed `__pychche__`, removed yazy game
+### v1.2
+- [1.2](https://github.com/d1fficult222/very_useful_bot/commit/4608b547e9dd04fb66aa9e74a523c95d7570c00a) (2024-08-29)  
+    - 新增：OJ and Notice
+    - 移除：`__pychche__`, yazy game
 
-### v1.1 Some Commands Update
+### v1.1
+- [1.1.2](https://github.com/d1fficult222/very_useful_bot/commit/46ff362da81c198268b4db6defacbdab017cb199) (2024-05-19)  
+    - 新增：solve31, solve21, factorial commands
 
-- [1.1.2](https://github.com/d1fficult222/very_useful_bot/commit/46ff362da81c198268b4db6defacbdab017cb199) Added solve31, solve21, factorial commands
+- [1.1.1](https://github.com/d1fficult222/very_useful_bot/commit/dade39e5ea98ed2254146d5044f303392aa9f37e) (2024-05-16)  
+    - 移除：drop down menu test file
 
-- [1.1.1](https://github.com/d1fficult222/very_useful_bot/commit/dade39e5ea98ed2254146d5044f303392aa9f37e) Removed drop down menu test file
+- [1.1.0](https://github.com/d1fficult222/very_useful_bot/commit/0c3f8782435a7c9118399b1b6c6a8a254f56eada) (2024-05-16)  
+    - 新增：today and vectorl command
 
-- [1.1.0](https://github.com/d1fficult222/very_useful_bot/commit/0c3f8782435a7c9118399b1b6c6a8a254f56eada) Added today and vectorl command
-
-### v1.0 Initial Commit
-- [1.1](https://github.com/d1fficult222/very_useful_bot/commit/fd4d1b2cea2580cf75ce1eb9576a25a0e0b01ef0) Removed README.md generated by GitHub because my [readme.md](#very_useful_bot) exists
-- [v1](https://github.com/d1fficult222/very_useful_bot/commit/58cbbdc727c8fb132622094c79042119ebf32742#diff-5a831ea67cf5cf8703b0de46901ab25bd191f56b320053be9332d9a3b0d01d15) Added pretty much everything to [GitHub](https://github.com/d1fficult222/very_useful_bot)
-- [v0](https://github.com/d1fficult222/very_useful_bot/commit/853c6eb2668d09d40497a7cfc83d37ae593354f5) Initial Commit
+### v1.0
+- [1.1](https://github.com/d1fficult222/very_useful_bot/commit/fd4d1b2cea2580cf75ce1eb9576a25a0e0b01ef0) (2024-05-02)  
+    - 移除：Removed README.md generated by GitHub because my [readme.md](#very_useful_bot) exists
+- [v1](https://github.com/d1fficult222/very_useful_bot/commit/58cbbdc727c8fb132622094c79042119ebf32742#diff-5a831ea67cf5cf8703b0de46901ab25bd191f56b320053be9332d9a3b0d01d15) (2024-05-02)  
+    - 新增：Added pretty much everything to [GitHub](https://github.com/d1fficult222/very_useful_bot)
+- [v0](https://github.com/d1fficult222/very_useful_bot/commit/853c6eb2668d09d40497a7cfc83d37ae593354f5) (2024-05-02)  
+    - Initial Commit
