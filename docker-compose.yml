@@ -1,0 +1,10 @@
+services:
+  discord-bot:
+    build: .
+    container_name: dc_bot
+    restart: unless-stopped
+    volumes:
+      - ./:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      

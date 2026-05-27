@@ -2,8 +2,9 @@
 
 VeryUsefulBot 是一個非常有用的 Discord 機器人，可以管理行事曆、建立提醒、遊玩小遊戲、還有一個 C++ Online Judge 系統！
 
-下載: [v1.10](https://github.com/d1fficult222/very_useful_bot/releases/latest) (2026/5 更新)  
+下載: [v1.10](https://github.com/d1fficult222/very_useful_bot/releases/latest)  
 [Changelog](docs/changelog.md)  
+[安裝說明](#安裝說明)
 
 
 - ### 行事曆與事件提醒
@@ -25,11 +26,17 @@ VeryUsefulBot 是一個非常有用的 Discord 機器人，可以管理行事曆
 
 
 ## 安裝說明
+下載 VeryUsefulBot
 ```bash
-# 下載 VeryUsefulBot
 git clone https://github.com/dfficult/very_useful_bot
 cd very_useful_bot
 
+# 輸入 Token (Required)，以及建立管理員密碼 (Optional)
+echo "TOKEN = <MyToken>" >> .env
+echo "PASSWORD = <MyPassword>" >> .env
+```
+方法一：測試環境
+```bash
 # 建立 venv
 python3 -m venv .venv
 source .venv/bin/activate
@@ -37,15 +44,14 @@ source .venv/bin/activate
 # 安裝額外的 module
 pip install -r requirements.txt
 
-# 安裝繁體中文字型，用於 `Quotify` (Optional)
+# 安裝繁體中文字型，用於圖片文字繪製 (Wordle, Quotify)
 sudo apt install fonts-noto-cjk
-
-# 輸入 Token (Required)，以及建立管理員密碼 (Optional)
-echo "TOKEN = <MyToken>" >> .env
-echo "PASSWORD = <MyPassword>" >> .env
 
 # 執行
 python3 main.py
 ```
-
-[更多說明](docs/tutorial.md)
+方法二：使用 Docker
+```bash
+# 已寫好 dockerfile，直接執行
+sudo docker compose up -d --build
+```
