@@ -5,6 +5,15 @@ services:
     restart: unless-stopped
     volumes:
       - ./:/app
+    env_file:
+      - .env
     environment:
       - PYTHONUNBUFFERED=1
-      
+  cloudflare-tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflare_tunnel
+    restart: always
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      - discord-bot

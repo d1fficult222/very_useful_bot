@@ -31,9 +31,14 @@ VeryUsefulBot 是一個非常有用的 Discord 機器人，可以管理行事曆
 git clone https://github.com/dfficult/very_useful_bot
 cd very_useful_bot
 
-# 輸入 Token (Required)，以及建立管理員密碼 (Optional)
+# 輸入 Token (Required)
 echo "TOKEN = <MyToken>" >> .env
+
+# 建立管理員密碼 (Optional, 用於 load/unload/restart 指令)
 echo "PASSWORD = <MyPassword>" >> .env
+
+# 輸入你的 email (Optional, 用於 OSRM API)
+echo "EMAIL = <MyEmail@something.com>" >> .env
 ```
 方法一：測試環境
 ```bash
