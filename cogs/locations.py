@@ -122,7 +122,7 @@ class Locations(commands.Cog):
                 channel = self.bot.get_channel(channel_id)
                 if channel:
                     embed = discord.Embed(
-                        title=text("locations.get_location"),
+                        title=text("locations.location"),
                         description=text("locations.get_location_description")
                     )
                     embed.add_field(name=text("locations.latitude"), value=lat)

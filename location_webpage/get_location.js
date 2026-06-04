@@ -54,7 +54,7 @@ function success(position) {
         if (response.ok) {
             document.getElementById('status').innerText = "位置傳送成功";
             if (guildID && channelID) {
-                window.location.href = `https://discord.com/channels/${guildID}/${channelID}`;
+                window.location.href = `discord://app/channels/${guildID}/${channelID}`;
             }
         } else {
             alert("傳送失敗，伺服器回應錯誤");
@@ -62,7 +62,7 @@ function success(position) {
     })
     .catch(err => {
         console.error(err);
-        alert("連線到伺服器失敗");
+        alert("連結無效或連線到伺服器失敗");
     });
 }
 
