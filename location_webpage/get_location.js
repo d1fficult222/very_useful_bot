@@ -57,12 +57,27 @@ function success(position) {
                 window.location.href = `discord://app/channels/${guildID}/${channelID}`;
             }
         } else {
-            alert("傳送失敗，伺服器回應錯誤");
+            switch(response.status) {
+                case 400:
+                    alert("伺服器沒有收到正確的數值，請再試一次 (400)");
+                    break;
+                case 403:
+                    alert("連結可能無效，請從 Discord 重新生成取得位置按鈕 (403)");
+                    break;
+                case 404:
+                    alert("找不到伺服器，請聯絡維護人員 (404)");
+                    break;
+                case 500:
+                    alert("伺服器發生了錯誤，請聯絡維護人員 (500)");
+                    break;
+                default:
+                    alert(`伺服器回應錯誤，請聯絡維護人員 (${response.status})`);
+            }
         }
     })
     .catch(err => {
         console.error(err);
-        alert("連結無效或連線到伺服器失敗");
+        alert("連線到伺服器失敗");
     });
 }
 
