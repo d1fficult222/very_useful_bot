@@ -4,7 +4,7 @@ from aiohttp import web
 import uuid, time, datetime, requests, os
 from pathlib import Path
 from lang import *
-
+import generate_map
 
 # Get location
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,15 +14,15 @@ LOCALMODE = False
 WEBPAGE_URL = os.getenv("WEBPAGE_URL")
 if not WEBPAGE_URL:
     print(text("locations.localhost"))
-    WEBPAGE_URL = "http://localhost:8000/index.html"
+    WEBPAGE_URL = "http://localhost:8000/get_location.html"
     LOCALMODE = True
 token_cache = {}
 TOKEN_EXPIRES = 180  # Expires after 3 mins
 
 
 # APIs
-NOMINATIM_URL = "https://nominatim.openstreetmap.org/search/"
-OSRM_URL = "https://router.openstreetmap.org/route/v1/foot/"
+NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
+OSRM_URL = "http://router.project-osrm.org/route/v1/foot/"
 EMAIL = os.getenv("EMAIL")
 if not EMAIL:
     print(text("bot.email_notfound"))
@@ -65,7 +65,7 @@ class Locations(commands.Cog):
     async def search(self, ctx: commands.Context, location: str):
         if ctx.interaction:
             await ctx.interaction.response.defer()
-        data = await self.location_search(location)
+        data = self.location_search(location)
         if data and len(data) > 0:
             first_result = data[0]
             lat = first_result.get("lat")
@@ -81,6 +81,29 @@ class Locations(commands.Cog):
 
             await ctx.send(embed=embed)
 
+    @commands.hybrid_command(name="route", description="locations.route.description")
+    async def route(self, ctx: commands.Context):
+        # 測試：清大走到巨城
+        start_lat, start_lon = 24.79368, 120.99561
+        end_lat, end_lon = 24.80932, 120.97557
+        center_lat = round((start_lat + end_lat)/2,4)
+        center_lon = round((start_lon + end_lon)/2,4)
+
+        result = self.get_walking_route(start_lat, start_lon, end_lat, end_lon, "清大", "巨城", center_lon, center_lat)
+
+        # 檢查 API 調用是否成功
+        if not result:
+            await ctx.send(text("locations.route_failed"))
+            return
+
+        embed = discord.Embed(
+            title=f"步行 {result['duration_min']} 分鐘，{result['distance_km']} 公里",
+            description=f""
+        )
+        embed.add_field(name="from", value=f"{start_lat}, {start_lon}")
+        embed.add_field(name="to", value=f"{end_lat}, {end_lon}")
+
+        await ctx.send(embed=embed)
 
     async def handle_location_post(self, request):
         """
@@ -135,13 +158,13 @@ class Locations(commands.Cog):
             return web.Response(text=text("locations.general_error_1"), status=500)
 
 
-    async def location_search(self, location: str):
+    def location_search(self, location: str):
         """
         Use Nominatim API to search a location  
         Returns a json in dict
         """
         params = {
-            "q": location,
+            "q": str(location),
             "format": "json",
             "addresdetails": 1
         }
@@ -153,13 +176,15 @@ class Locations(commands.Cog):
                 return results
             else:
                 print(text("locations.nominatim.request_failed", {response.status_code}))
+                return None
         except Exception as e:
             print(text("locations.nominatim.failed", {e}))
+            return None
 
 
-    async def get_walking_route(self, start_lat, start_lon, dest_lat, dest_lon):
-        coords = f"{start_lon},{start_lat};{dest_lon},{dest_lat}"
-        url = f"{OSRM_URL}{coords}?overview=false"
+    def get_walking_route(self, start_lat, start_lon, end_lat, end_lon, start_name, end_name, center_lon, center_lat):
+        coords = f"{start_lon},{start_lat};{end_lon},{end_lat}"
+        url = f"{OSRM_URL}{coords}?overview=full&geometries=geojson&steps=true"
 
         try:
             response = requests.get(url, headers=headers)
@@ -169,9 +194,65 @@ class Locations(commands.Cog):
                     route = data["routes"][0]
                     duration_sec = route.get("duration", 0)
                     distance_m = route.get("distance", 0)
+
+                    geometry = route["geometry"]["coordinates"]
+                    all_steps = route["legs"][0]["steps"]
+
+                    step_instructions = {}
+
+                    for step in all_steps:
+                        street_name = step.get("name", text("map.unknown_street"))
+                        if street_name == "": street_name = text("map.unknown_street")
+                        
+                        maneuver = step.get("maneuver", {})
+                        manuever_type = maneuver.get("type")  # turn, depart, arrive, ...
+                        modifier = maneuver.get("modifier")   # left, right, straight, ...
+                        
+                        location = maneuver.get("location")
+                        if not location or len(location) < 2:
+                            continue
+                        step_coords = (location[0], location[1])
+
+                        if manuever_type == "depart":
+                            instrcution = text("map.start_from", street_name)
+                            instrcution_short = text("map.start")
+                        elif manuever_type == "arrive":
+                            instrcution = text("map.arrived_at", street_name)
+                            instrcution_short = text("map.arrived")
+                        elif manuever_type == "turn" or modifier is not None:
+                            if modifier == "straight":
+                                continue
+                            instrcution = text(f"map.manuever.{modifier.replace(' ', '_')}.at", street_name)
+                            instrcution_short = text(f"map.manuever.{modifier.replace(' ', '_')}")
+                        else:
+                            continue
+                        
+                        step_instructions[step_coords] = {
+                            "instruction": instrcution,
+                            "short": instrcution_short
+                        }
+                
+                    path_coords = [[point[1], point[0]] for point in geometry]
+                    turn_markers = [{
+                        "lat": coord_key[1],
+                        "lon": coord_key[0],
+                        "instruction": info["instruction"],
+                        "short": info["short"]
+                    } for coord_key, info in step_instructions.items()]
+
+                    generate_map.create_leaflet_map(
+                        center=[center_lat, center_lon],
+                        zoom=14,
+                        start=[start_lat, start_lon, text("map.start_from", start_name)],
+                        end=[end_lat, end_lon, text("map.arrived_at", end_name)],
+                        path_geometry=path_coords,
+                        turn_steps=turn_markers
+                    )
+
                     return {
                         "duration_min": round(duration_sec/60, 2),
-                        "distance_km": round(distance_m/1000, 2)
+                        "distance_km": round(distance_m/1000, 2),
+                        "coordinates_lon_lat": geometry,
                     }
                 else:
                     print(text("locations.osrm.error", data.get("code")))
