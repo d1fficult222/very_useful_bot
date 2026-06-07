@@ -5,7 +5,7 @@ from aiohttp import web
 import uuid, time, os
 from pathlib import Path
 from lang import *
-from locations.location_utils import get_route, location_search
+from navigator.navigator_utils import get_route, location_search
 
 
 
@@ -34,7 +34,7 @@ ROUTE_EXPIRES = 12 * 3600  # Route map tokens valid for 12 hours
 user_coords = {}
 
 
-class Locations(commands.Cog):
+class Navigator(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         bot.loop.create_task(self.start_web_server())
@@ -64,7 +64,7 @@ class Locations(commands.Cog):
     async def search(self, ctx: commands.Context, location: str):
         if ctx.interaction:
             await ctx.interaction.response.defer()
-        data = self.location_search(location)
+        data = location_search(location)
         if data and len(data) > 0:
             first_result = data[0]
             lat = first_result.get("lat")
@@ -92,7 +92,7 @@ class Locations(commands.Cog):
         await self.cleanup_route_files_once()
 
         profile = "foot"
-        result = self.get_route(
+        result = get_route(
             {"lat": start_lat, "lon": start_lon, "name": start_name},
             {"lat": end_lat, "lon": end_lon, "name": end_name},
             profile=profile,
@@ -231,4 +231,4 @@ class Locations(commands.Cog):
 
 
 async def setup(bot: commands.Bot):
-    await bot.add_cog(Locations(bot))
+    await bot.add_cog(Navigator(bot))

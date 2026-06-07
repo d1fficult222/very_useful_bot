@@ -1,5 +1,6 @@
 __pycache/
-.env
-assets/
 cogs/__pycache/
+navigator/__pycache/
+assets/
+.env
 .venv/

@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 import requests
 from lang import *
-from locations import generate_map
+from navigator import generate_map
 
 
 # Imperial units 的切換開關會在之後的更新中加上
