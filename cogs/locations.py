@@ -1,10 +1,17 @@
+import asyncio
 import discord
 from discord.ext import commands
 from aiohttp import web
-import uuid, time, datetime, requests, os
+import uuid, time, os
 from pathlib import Path
 from lang import *
-import generate_map
+from locations.location_utils import get_route, location_search
+
+
+
+# Imperial units 的切換開關會在之後的更新中加上
+IMPERIAL_UNITS = False
+
 
 # Get location
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -16,20 +23,11 @@ if not WEBPAGE_URL:
     print(text("locations.localhost"))
     WEBPAGE_URL = "http://localhost:8000/get_location.html"
     LOCALMODE = True
+WEBPAGE_BASE = WEBPAGE_URL.split('?')[0].rsplit('/', 1)[0]
 token_cache = {}
 TOKEN_EXPIRES = 180  # Expires after 3 mins
-
-
-# APIs
-NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
-OSRM_URL = "http://router.project-osrm.org/route/v1/foot/"
-EMAIL = os.getenv("EMAIL")
-if not EMAIL:
-    print(text("bot.email_notfound"))
-    exit()
-headers = {
-    "User-Agent": f"VeryUsefulBot/1.11.0 ({EMAIL})"        
-}
+route_cache = {}
+ROUTE_EXPIRES = 12 * 3600  # Route map tokens valid for 12 hours
 
 
 # User coordinates
@@ -40,6 +38,7 @@ class Locations(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         bot.loop.create_task(self.start_web_server())
+        bot.loop.create_task(self.cleanup_route_files())
     
     def cog_unload(self):
         self.bot.remove_command("get_location")
@@ -83,27 +82,53 @@ class Locations(commands.Cog):
 
     @commands.hybrid_command(name="route", description="locations.route.description")
     async def route(self, ctx: commands.Context):
-        # 測試：清大走到巨城
-        start_lat, start_lon = 24.79368, 120.99561
-        end_lat, end_lon = 24.80932, 120.97557
-        center_lat = round((start_lat + end_lat)/2,4)
-        center_lon = round((start_lon + end_lon)/2,4)
+        
+        # 測試
+        start_lat, start_lon, start_name = 24.80932, 120.97557, "巨城"
+        end_lat, end_lon, end_name = 25.08093, 121.23667, "桃園機場"
+        token = str(uuid.uuid4())
+        route_file = WEBPAGE_ROOT / f"{token}.html"
 
-        result = self.get_walking_route(start_lat, start_lon, end_lat, end_lon, "清大", "巨城", center_lon, center_lat)
+        await self.cleanup_route_files_once()
 
-        # 檢查 API 調用是否成功
+        profile = "foot"
+        result = self.get_route(
+            {"lat": start_lat, "lon": start_lon, "name": start_name},
+            {"lat": end_lat, "lon": end_lon, "name": end_name},
+            profile=profile,
+            output_path=route_file
+        )
+
         if not result:
             await ctx.send(text("locations.route_failed"))
             return
 
-        embed = discord.Embed(
-            title=f"步行 {result['duration_min']} 分鐘，{result['distance_km']} 公里",
-            description=f""
-        )
-        embed.add_field(name="from", value=f"{start_lat}, {start_lon}")
-        embed.add_field(name="to", value=f"{end_lat}, {end_lon}")
+        route_cache[token] = {
+            "expires": time.time() + ROUTE_EXPIRES,
+            "file": str(route_file)
+        }
+        
+        duration = result["duration_text"]
+        distance = result["distance_text"]
+        steps_25 = result["step_by_step"][:25]
 
-        await ctx.send(embed=embed)
+        embed = discord.Embed(
+            title=f"{text(f'map.{profile}')} • {duration} • {distance}",
+            description=f"{start_name} → {end_name}"
+        )
+        for i, item in enumerate(steps_25):
+            embed.add_field(name=str(i+1), value=item["text"])
+
+        view = discord.ui.View()
+        map_button = discord.ui.Button(
+            label=text("locations.open_map") if text("locations.open_map") != "locations.open_map" else "Open Map",
+            url=f"{WEBPAGE_BASE}/{token}.html"
+        )
+        view.add_item(map_button)
+
+        await ctx.send(embed=embed, view=view)
+
+
 
     async def handle_location_post(self, request):
         """
@@ -157,113 +182,23 @@ class Locations(commands.Cog):
         except Exception as e:
             return web.Response(text=text("locations.general_error_1"), status=500)
 
+    async def cleanup_route_files_once(self):
+        now = time.time()
+        expired = [token for token, info in route_cache.items() if now > info["expires"]]
+        for token in expired:
+            try:
+                path = Path(route_cache[token]["file"])
+                if path.exists():
+                    path.unlink()
+            except Exception as cleanup_error:
+                print(f"Route cleanup error: {cleanup_error}")
+            finally:
+                route_cache.pop(token, None)
 
-    def location_search(self, location: str):
-        """
-        Use Nominatim API to search a location  
-        Returns a json in dict
-        """
-        params = {
-            "q": str(location),
-            "format": "json",
-            "addresdetails": 1
-        }
-        
-        try:
-            response = requests.get(NOMINATIM_URL, params=params, headers=headers)
-            if response.status_code == 200:
-                results = response.json()
-                return results
-            else:
-                print(text("locations.nominatim.request_failed", {response.status_code}))
-                return None
-        except Exception as e:
-            print(text("locations.nominatim.failed", {e}))
-            return None
-
-
-    def get_walking_route(self, start_lat, start_lon, end_lat, end_lon, start_name, end_name, center_lon, center_lat):
-        coords = f"{start_lon},{start_lat};{end_lon},{end_lat}"
-        url = f"{OSRM_URL}{coords}?overview=full&geometries=geojson&steps=true"
-
-        try:
-            response = requests.get(url, headers=headers)
-            if response.status_code == 200:
-                data = response.json()
-                if data.get("code") == "Ok":
-                    route = data["routes"][0]
-                    duration_sec = route.get("duration", 0)
-                    distance_m = route.get("distance", 0)
-
-                    geometry = route["geometry"]["coordinates"]
-                    all_steps = route["legs"][0]["steps"]
-
-                    step_instructions = {}
-
-                    for step in all_steps:
-                        street_name = step.get("name", text("map.unknown_street"))
-                        if street_name == "": street_name = text("map.unknown_street")
-                        
-                        maneuver = step.get("maneuver", {})
-                        manuever_type = maneuver.get("type")  # turn, depart, arrive, ...
-                        modifier = maneuver.get("modifier")   # left, right, straight, ...
-                        
-                        location = maneuver.get("location")
-                        if not location or len(location) < 2:
-                            continue
-                        step_coords = (location[0], location[1])
-
-                        if manuever_type == "depart":
-                            instrcution = text("map.start_from", street_name)
-                            instrcution_short = text("map.start")
-                        elif manuever_type == "arrive":
-                            instrcution = text("map.arrived_at", street_name)
-                            instrcution_short = text("map.arrived")
-                        elif manuever_type == "turn" or modifier is not None:
-                            if modifier == "straight":
-                                continue
-                            instrcution = text(f"map.manuever.{modifier.replace(' ', '_')}.at", street_name)
-                            instrcution_short = text(f"map.manuever.{modifier.replace(' ', '_')}")
-                        else:
-                            continue
-                        
-                        step_instructions[step_coords] = {
-                            "instruction": instrcution,
-                            "short": instrcution_short
-                        }
-                
-                    path_coords = [[point[1], point[0]] for point in geometry]
-                    turn_markers = [{
-                        "lat": coord_key[1],
-                        "lon": coord_key[0],
-                        "instruction": info["instruction"],
-                        "short": info["short"]
-                    } for coord_key, info in step_instructions.items()]
-
-                    generate_map.create_leaflet_map(
-                        center=[center_lat, center_lon],
-                        zoom=14,
-                        start=[start_lat, start_lon, text("map.start_from", start_name)],
-                        end=[end_lat, end_lon, text("map.arrived_at", end_name)],
-                        path_geometry=path_coords,
-                        turn_steps=turn_markers
-                    )
-
-                    return {
-                        "duration_min": round(duration_sec/60, 2),
-                        "distance_km": round(distance_m/1000, 2),
-                        "coordinates_lon_lat": geometry,
-                    }
-                else:
-                    print(text("locations.osrm.error", data.get("code")))
-                    return None
-            else:
-                print(text("locations.osrm.request_failed", response.status_code))
-                return None
-        except Exception as e:
-            print(text("locations.osrm.failed", {e}))
-            return None
-
+    async def cleanup_route_files(self):
+        while True:
+            await asyncio.sleep(60)
+            await self.cleanup_route_files_once()
 
     async def start_web_server(self):
         """

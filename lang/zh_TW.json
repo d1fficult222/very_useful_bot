@@ -292,6 +292,7 @@
     "locations.osrm.error": "OSRM Error: {}",
     "locations.osrm.request_failed": "OSRM Request failed: {}",
     "locations.osrm.failed": "OSRM Request failed: {}",
+    "locations.open_in_map": "在地圖中詳細顯示",
 
     "map.unknown_street": "未知的道路",
     "map.start_from": "從 {} 出發",
@@ -299,6 +300,12 @@
     "map.arrived_at": "抵達 {}",
     "map.arrived": "終點",
     "map.route": "路徑",
+    "map.minutes": "分鐘",
+    "map.hours": "小時",
+    "map.meters": "公尺",
+    "map.kilometers": "公里",
+    "map.feet": "腳",
+    "map.miles": "英里",
     "map.manuever.left": "向左轉",
     "map.manuever.left.at": "在 {} 向左轉",
     "map.manuever.right": "向右轉",
@@ -314,5 +321,11 @@
     "map.manuever.uturn": "迴轉",
     "map.manuever.uturn.at": "在 {} 迴轉",
     "map.manuever.straight": "繼續直行",
-    "map.manuever.straight.at": "在 {} 繼續直行"
+    "map.manuever.straight.at": "在 {} 繼續直行",
+    "map.generated": "已生成地圖網頁：{}",
+    "map.unknown_duration": "未知行程時間",
+    "map.unknown_distance": "未知行程距離",
+    "map.foot": "步行",
+    "map.car": "開車",
+    "map.bike": "自行車/機車"
 }
