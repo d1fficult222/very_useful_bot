@@ -2,13 +2,16 @@
 
 VeryUsefulBot 是一個非常有用的 Discord 機器人，可以管理行事曆、建立提醒、遊玩小遊戲、還有一個 C++ Online Judge 系統！
 
-下載: [v1.10](https://github.com/d1fficult222/very_useful_bot/releases/latest)  
+下載: [v1.11](https://github.com/d1fficult222/very_useful_bot/releases/latest)  
 [Changelog](docs/changelog.md)  
 [安裝說明](#安裝說明)
 
 
+- ### [NEW!] 規劃路線
+    使用 Nominatim API 搜尋目標，並用 OSRM API 規劃路線，並在 Leaflet 地圖中顯示詳細路線
+
 - ### 行事曆與事件提醒
-    建立提醒事項，不再忘記明天該做什麼  
+    建立提醒事項，不再忘記什麼時候該做什麼  
     [行事曆說明]()
 
 - ### Wordle

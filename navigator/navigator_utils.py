@@ -3,7 +3,7 @@ from pathlib import Path
 import requests
 from lang import *
 from navigator import generate_map
-
+import settings
 
 # Imperial units 的切換開關會在之後的更新中加上
 IMPERIAL_UNITS = False
@@ -22,21 +22,47 @@ headers = {
 }
 
 
-def location_search(location: str):
+def location_search(location: str, center_coord: dict = None):
     """
-    Use Nominatim API to search a location.
-    Returns a list of json results.
+    Use Nominatim API to search a location.  
+    Returns a list of json results.  
+    - location: 搜尋的地點名稱
+    - center_coord: 可選，格式 {"lat": 25.00, "lon": 121.00}，將限制搜尋範圍在該座標方圓約 10km 內
     """
     params = {
         "q": str(location),
         "format": "json",
-        "addresdetails": 1
+        "addressdetails": 1,
+        "countrycodes": settings.country_code,
+        "limit": 20,
     }
+    
+    # 如果有中心座標，先在 10km 範圍內搜尋
+    if center_coord and "lat" in center_coord and "lon" in center_coord:
+        lat, lon = center_coord["lat"], center_coord["lon"]
+        offset = 0.09
+        viewbox = f"{lon - offset},{lat - offset},{lon + offset},{lat + offset}"
+        params["viewbox"] = viewbox
+        params["bounded"] = 1
 
     try:
         response = requests.get(NOMINATIM_URL, params=params, headers=headers)
         if response.status_code == 200:
-            return response.json()
+            results = response.json()
+            
+            # 如果有指定搜尋範圍但沒有結果，解除限制重新搜尋
+            if center_coord and not results:
+                params.pop("viewbox", None)
+                params.pop("bounded", None)
+                
+                response = requests.get(NOMINATIM_URL, params=params, headers=headers)
+                if response.status_code == 200:
+                    return response.json()
+                else:
+                    print(text("locations.nominatim.request_failed", {response.status_code}))
+                    return None
+            
+            return results
         else:
             print(text("locations.nominatim.request_failed", {response.status_code}))
             return None
@@ -55,8 +81,8 @@ def get_route(start_loc: dict, end_loc: dict, profile: str = "foot", output_path
     輸出:
     - {"distance_text", "duration_text", "step_by_step", "coordinates_lon_lat"}
     """
-    start_lat, start_lon, start_name = start_loc["lat"], start_loc["lon"], start_loc["name"]
-    end_lat, end_lon, end_name = end_loc["lat"], end_loc["lon"], end_loc["name"]
+    start_lat, start_lon, start_name = float(start_loc["lat"]), float(start_loc["lon"]), str(start_loc["name"])
+    end_lat, end_lon, end_name = float(end_loc["lat"]), float(end_loc["lon"]), str(end_loc["name"])
     if profile not in ["foot", "car", "bike"]:
         profile = "foot"
 

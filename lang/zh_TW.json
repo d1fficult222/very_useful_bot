@@ -293,6 +293,9 @@
     "locations.osrm.request_failed": "OSRM Request failed: {}",
     "locations.osrm.failed": "OSRM Request failed: {}",
     "locations.open_in_map": "在地圖中詳細顯示",
+    "locations.your_location": "你的位置",
+    "locations.get_location_again": "你的位置已過期，請使用 /get_location 取得你的位置",
+    "locations.find_route": "搜尋路線",
 
     "map.unknown_street": "未知的道路",
     "map.start_from": "從 {} 出發",
@@ -327,5 +330,5 @@
     "map.unknown_distance": "未知行程距離",
     "map.foot": "步行",
     "map.car": "開車",
-    "map.bike": "自行車/機車"
+    "map.bike": "自行車"
 }

@@ -4,7 +4,7 @@ import settings and access by settings.xxx
 """
 import discord
 
-Version = "1.9.1"
+country_code = "tw"  # for nominatim searching
 LANG = "zh_TW"
 class Colors:
     notice = discord.Color.dark_magenta()
