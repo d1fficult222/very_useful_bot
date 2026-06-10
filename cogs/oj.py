@@ -28,6 +28,7 @@ class OJ(commands.Cog):
 
     class SubmitWindow(discord.ui.Modal, title=text("oj.submit")):
         def __init__(self, cog):
+            super().__init__()
             self.cog = cog
 
         codes = discord.ui.TextInput(
@@ -60,7 +61,7 @@ class OJ(commands.Cog):
             await interaction.response.defer(thinking=True)
 
             # compile the code
-            result = subprocess.run(["bash", f"assets/run_code/compile_{lang}.sh"], capture_output=True, text=True)
+            result = subprocess.run(["bash", f"compile_{lang}.sh"], capture_output=True, text=True, cwd="assets/run_code")
             if result.stderr:
                 # An error occurred
                 embed.title = text("oj.compilation_err")
@@ -78,8 +79,8 @@ class OJ(commands.Cog):
                 with open("assets/run_code/input.txt", "w") as file:
                     file.write(question["tests"][i]["input"])
                 # let's run it
-                runcode_path = f"assets/run_code/run_{lang}.sh"
-                result = subprocess.run(["bash", runcode_path], capture_output=True, text=True)
+                runcode_path = f"run_{lang}.sh"
+                result = subprocess.run(["bash", runcode_path], capture_output=True, text=True, cwd="assets/run_code")
                 # check the result
                 if result.stderr:
                     # An error occurred
@@ -166,7 +167,8 @@ class OJ(commands.Cog):
     @app_commands.choices(
         language=[
             Choice(name=text("cmd.code_submit.c_plus_plus"),value="cpp"),
-            Choice(name=text("cmd.code_submit.c"),value="c")
+            Choice(name=text("cmd.code_submit.c"),value="c"),
+            Choice(name=text("cmd.code_submit.python"),value="py")
         ],
         difficulty=[
             Choice(name=text("oj.easy"), value=0),
@@ -184,7 +186,7 @@ class OJ(commands.Cog):
             global id_global, lang
             id_global = [difficulty.value, id]
             lang = language.value
-            await interaction.response.send_modal(self.SubmitWindow())
+            await interaction.response.send_modal(self.SubmitWindow(self))
         else:
             await interaction.response.send_message(text("cmd.code_submit.not_exist",self.diffToName(difficulty=difficulty.value),id), ephemeral=True)
 

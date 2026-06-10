@@ -5,7 +5,7 @@ from aiohttp import web
 import uuid, time, os
 from pathlib import Path
 from lang import *
-from navigator.navigator_utils import get_route, location_search
+from navigator.navigator_utils import get_route, location_search, reverse_search
 
 
 
@@ -230,12 +230,22 @@ class Navigator(commands.Cog):
             channel_id = this_token["channel_id"]
             channel = self.bot.get_channel(channel_id) if channel_id else None
             if channel:
+                reverse_result = reverse_search(lat, lon)
+                address = reverse_result.get("address") if reverse_result else text("location.not_found")
+                about = reverse_result.get("about") if reverse_result else ""
+                poi = reverse_result.get("poi") if reverse_result else None
+
                 embed = discord.Embed(
                     title=text("locations.location"),
                     description=text("locations.get_location_description")
                 )
                 embed.add_field(name=text("locations.latitude"), value=lat)
                 embed.add_field(name=text("locations.longitude"), value=lon)
+                embed.add_field(name="地址", value=str(address))
+                if about:
+                    embed.add_field(name="說明", value=str(about))
+                if poi:
+                    embed.add_field(name="POI", value=str(poi))
                 await channel.send(embed=embed)
 
                 pending_route = this_token.get("pending_route")

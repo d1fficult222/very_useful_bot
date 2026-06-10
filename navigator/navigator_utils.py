@@ -12,6 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 WEBPAGE_ROOT = BASE_DIR / "location_webpage"
 
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
+NOMINATIM_REVERSE_URL = "https://nominatim.openstreetmap.org/reverse"
 OSRM_URL = "http://router.project-osrm.org/route/v1"
 EMAIL = os.getenv("EMAIL")
 if not EMAIL:
@@ -201,3 +202,48 @@ def get_route(start_loc: dict, end_loc: dict, profile: str = "foot", output_path
     except Exception as e:
         print(text("locations.osrm.failed", {e}))
         return None
+
+
+def reverse_search(lat: float, lon: float):
+    lat = float(lat)
+    lon = float(lon)
+
+    params = {
+        "format": "jsonv2",
+        "lat": lat,
+        "lon": lon,
+        "addressdetails": 1,
+    }
+    try:
+        response = requests.get(NOMINATIM_REVERSE_URL, params=params, headers=headers)
+        if response.status_code == 200:
+            data = response.json() or {}
+            display_name = data.get("display_name", text("location.not_found"))
+            address_details = data.get("address", {})
+            city = address_details.get("city") or address_details.get("town") or address_details.get("suburb", "")
+            road = address_details.get("road", "")
+            
+            poi_keys = ['university', 'amenity', 'tourism', 'historic', 'leisure', 'building', 'shop']
+            place_name = None
+            for key in poi_keys:
+                if key in address_details:
+                    place_name = address_details[key]
+
+            return {
+                "address": str(display_name),
+                "about": f"{city} {road}".strip(),
+                "poi": place_name
+            }
+        else:
+            return {
+                "address": text("location.not_found"),
+                "about": "",
+                "poi": None
+            }
+    except:
+        return {
+            "address": text("location.not_found"),
+            "about": "",
+            "poi": None
+        }
+    
