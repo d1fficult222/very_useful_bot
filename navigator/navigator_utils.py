@@ -188,6 +188,7 @@ def get_route(start_loc: dict, end_loc: dict, profile: str = "foot", output_path
                 return {
                     "distance_text": distance_text,
                     "duration_text": duration_text,
+                    "duration_minutes": minutes,
                     "step_by_step": text_instructions_list,
                     "coordinates_lon_lat": geometry,
                 }

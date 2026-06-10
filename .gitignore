@@ -1,5 +1,6 @@
 __pycache/
 cogs/__pycache/
+calendar_tools/__pycache/
 navigator/__pycache/
 assets/
 .env

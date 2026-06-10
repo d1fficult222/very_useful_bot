@@ -270,6 +270,55 @@
     "calendar.reminder.title": "臨時提醒",
     "calendar.reminder.description": "建立一個臨時提醒事項，觸發後自動刪除",
     "calendar.new_reminder.title": "建立臨時提醒",
+
+    "calendar.add_event.title": "新增行程或活動",
+    "calendar.add_event.summary_label": "標題",
+    "calendar.add_event.summary_placeholder": "請填入標題",
+    "calendar.add_event.start_time_label": "開始時間",
+    "calendar.add_event.start_time_placeholder": "以 YYYY-MM-DD HH:MM 格式填入",
+    "calendar.add_event.location_label": "新增地點",
+    "calendar.add_event.location_placeholder": "例如：台北101",
+    "calendar.add_event.description_label": "新增說明",
+    "calendar.add_event.description_placeholder": "輸入備註說明",
+    "calendar.add_event.notify_label": "提前提醒（分鐘）",
+    "calendar.add_event.notify_placeholder": "例如: 30 表示開始前 30 分鐘提醒，留空則不提醒",
+    "calendar.add_event.error.time_format": "時間格式錯誤！請確保完全符合 `YYYY-MM-DD HH:MM` 格式。",
+    "calendar.add_event.error.invalid_notify": "提醒分鐘數必須是整數！",
+    "calendar.add_event.debug.notify_set": "用戶設置提醒: {} 分鐘",
+    "calendar.add_event.success.title": "**成功新增行程：** {}",
+    "calendar.add_event.success.start_time": "**開始時間：** `{}`",
+    "calendar.add_event.success.end_time": "**結束時間：** `{}`",
+    "calendar.add_event.success.notify_before": "**提醒時間：** 開始前 {} 分鐘",
+    "calendar.add_event.success.notify_instant": "**提醒時間：** 開始時立即提醒",
+
+    "calendar.delete.confirm_message": "你確定要刪除行程 **【{}】** 嗎？此操作無法復原。",
+    "calendar.delete.success": "已成功刪除行程：**{}**",
+    "calendar.delete.error.failed": "刪除失敗，該行程可能已被刪除或不屬於你。",
+    "calendar.delete.cancelled": "已取消刪除操作。",
+    "calendar.delete.select_option_time": "時間: {}",
+    "calendar.delete.select_placeholder": "請選擇你要刪除的行程...",
+
+    "calendar.view.calendar_title": "{0} 年 {1} 月 行事曆",
+    "calendar.view.event_list_title": "本月行程清單",
+    "calendar.view.no_events": "無任何行程",
+
+    "calendar.button.confirm_delete": "確定刪除",
+    "calendar.button.cancel": "取消",
+    "calendar.button.prev_month": "⬅️ 上個月",
+    "calendar.button.next_month": "下個月 ➡️",
+
+    "calendar.error.cannot_operate_menu": "你不能操作別人的選單！",
+    "calendar.error.cannot_operate_button": "你不能操作這個按鈕！",
+    "calendar.error.cannot_operate_calendar": "你不能操作別人的月曆！",
+
+    "calendar.command.delete_event.description": "選擇並刪除我的行事曆行程",
+    "calendar.command.delete_event.no_events": "你目前沒有任何即將到來的行程可供刪除。",
+    "calendar.command.delete_event.select_prompt": "請使用下方的下拉選單選擇你想刪除的行程：",
+
+    "calendar.command.add_event.description": "開啟表單來新增行事曆行程",
+    "calendar.command.add_event.error.form_only": "填寫表單的功能只能透過斜線指令觸發！請在對話框輸入 `/add_event`。",
+
+    "calendar.command.calendar.description": "顯示我的文字行事曆月曆",
     
 
     "locations.localhost": "沒有填入 WEBPAGE_URL，以 localhost 架設網站",

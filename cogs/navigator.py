@@ -125,6 +125,8 @@ class Navigator(commands.Cog):
 
     @commands.hybrid_command(name="get_location", description=text("locations.get_location.description"))
     async def get_location(self, ctx: commands.Context):
+        if ctx.guild is None:
+            return await ctx.send(text("locations.error.dm_not_supported"))
         token = create_location_token(ctx.author.id, ctx.channel.id)
         view = build_location_view(token, ctx.guild.id, ctx.channel.id)
         await ctx.send(text("locations.click_button"), view=view)
